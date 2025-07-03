@@ -67,7 +67,7 @@ abstract class _InfoController with Store {
     await BangumiHTTP.getBangumiCommentsByID(id, offset: offset).then((value) {
       commentsList.addAll(value.commentList);
     });
-    KazumiLogger().log(Level.info, '已加载评论列表长度 ${commentsList.length}');
+    KazumiLogger().log(Level.info, 'Loaded comments list length ${commentsList.length}');
   }
 
   Future<void> queryBangumiCharactersByID(int id) async {
@@ -76,9 +76,9 @@ abstract class _InfoController with Store {
       characterList.addAll(value.charactersList);
     });
     Map<String, int> relationValue = {
-      '主角': 1,
-      '配角': 2,
-      '客串': 3,
+      'Main Character': 1,
+      'Supporting Character': 2,
+      'Guest Character': 3,
     };
 
     try {
@@ -90,7 +90,7 @@ abstract class _InfoController with Store {
     } catch (e) {
       KazumiDialog.showToast(message: '$e');
     }
-    KazumiLogger().log(Level.info, '已加载角色列表长度 ${characterList.length}');
+    KazumiLogger().log(Level.info, 'Loaded character list length ${characterList.length}');
   }
 
   Future<void> queryBangumiStaffsByID(int id) async {
@@ -98,6 +98,6 @@ abstract class _InfoController with Store {
     await BangumiHTTP.getBangumiStaffByID(id).then((value) {
       staffList.addAll(value.data);
     });
-    KazumiLogger().log(Level.info, '已加载制作人员列表长度 ${staffList.length}');
+    KazumiLogger().log(Level.info, 'Loaded staff list length ${staffList.length}');
   }
 }

@@ -73,16 +73,16 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
     KazumiDialog.show(builder: (context) {
       String input = "";
       return AlertDialog(
-        title: const Text('跳过秒数'),
+        title: const Text('Skip Seconds'),
         content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
           return TextField(
             inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly, // 只允许输入数字
+              FilteringTextInputFormatter.digitsOnly, // Allow only digits
             ],
             decoration: InputDecoration(
               floatingLabelBehavior:
-                  FloatingLabelBehavior.never, // 控制label的显示方式
+                  FloatingLabelBehavior.never, // Control label display
               labelText: playerController.forwardTime.toString(),
             ),
             onChanged: (value) {
@@ -94,7 +94,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
           TextButton(
             onPressed: () => KazumiDialog.dismiss(),
             child: Text(
-              '取消',
+              'Cancel',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -107,7 +107,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                 KazumiDialog.dismiss();
               }
             },
-            child: const Text('确定'),
+            child: const Text('Confirm'),
           ),
         ],
       );
@@ -143,7 +143,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
 
   Widget forwardIcon() {
     return Tooltip(
-      message: '长按修改时间',
+      message: 'Long press to modify time',
       child: GestureDetector(
         onLongPress: () => showForwardChange(),
         child: IconButton(
@@ -175,7 +175,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
       return Stack(
         alignment: Alignment.center,
         children: [
-          //顶部渐变区域
+          //Top gradient area
           AnimatedPositioned(
             duration: const Duration(seconds: 1),
             top: 0,
@@ -202,7 +202,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
             ),
           ),
 
-          //底部渐变区域
+          //Bottom gradient area
           AnimatedPositioned(
             duration: const Duration(seconds: 1),
             bottom: 0,
@@ -228,7 +228,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
               ),
             ),
           ),
-          // 顶部进度条
+          // Top progress bar
           Positioned(
               top: 25,
               child: playerController.showSeekTime
@@ -239,14 +239,14 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                           padding: const EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
                             color: Colors.black54,
-                            borderRadius: BorderRadius.circular(8.0), // 圆角
+                            borderRadius: BorderRadius.circular(8.0), // Rounded corners
                           ),
                           child: Text(
                             playerController.currentPosition.compareTo(
                                         playerController.playerPosition) >
                                     0
-                                ? '快进 ${playerController.currentPosition.inSeconds - playerController.playerPosition.inSeconds} 秒'
-                                : '快退 ${playerController.playerPosition.inSeconds - playerController.currentPosition.inSeconds} 秒',
+                                ? 'Fast Forward ${playerController.currentPosition.inSeconds - playerController.playerPosition.inSeconds} seconds'
+                                : 'Rewind ${playerController.playerPosition.inSeconds - playerController.currentPosition.inSeconds} seconds',
                             style: const TextStyle(
                               color: Colors.white,
                             ),
@@ -255,7 +255,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                       ],
                     )
                   : Container()),
-          // 顶部播放速度条
+          // Top playback speed bar
           Positioned(
               top: 25,
               child: playerController.showPlaySpeed
@@ -266,13 +266,13 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                           padding: const EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
                             color: Colors.black54,
-                            borderRadius: BorderRadius.circular(8.0), // 圆角
+                            borderRadius: BorderRadius.circular(8.0), // Rounded corners
                           ),
                           child: const Row(
                             children: <Widget>[
                               Icon(Icons.fast_forward, color: Colors.white),
                               Text(
-                                ' 倍速播放',
+                                ' Speed Playback',
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -283,7 +283,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                       ],
                     )
                   : Container()),
-          // 亮度条
+          // Brightness bar
           Positioned(
               top: 25,
               child: playerController.showBrightness
@@ -294,7 +294,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             padding: const EdgeInsets.all(8.0),
                             decoration: BoxDecoration(
                               color: Colors.black54,
-                              borderRadius: BorderRadius.circular(8.0), // 圆角
+                              borderRadius: BorderRadius.circular(8.0), // Rounded corners
                             ),
                             child: Row(
                               children: <Widget>[
@@ -311,7 +311,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                       ],
                     )
                   : Container()),
-          // 音量条
+          // Volume bar
           Positioned(
               top: 25,
               child: playerController.showVolume
@@ -322,7 +322,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             padding: const EdgeInsets.all(8.0),
                             decoration: BoxDecoration(
                               color: Colors.black54,
-                              borderRadius: BorderRadius.circular(8.0), // 圆角
+                              borderRadius: BorderRadius.circular(8.0), // Rounded corners
                             ),
                             child: Row(
                               children: <Widget>[
@@ -339,7 +339,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                       ],
                     )
                   : Container()),
-          // 自定义顶部组件
+          // Custom top component
           Positioned(
             top: 0,
             left: 0,
@@ -358,11 +358,11 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                           widget.onBackPressed(context);
                         },
                       ),
-                      // 拖动条
+                      // Drag bar
                       const Expanded(
                         child: dtb.DragToMoveArea(child: SizedBox(height: 40)),
                       ),
-                      // 跳过
+                      // Skip
                       forwardIcon(),
                       if (Utils.isDesktop())
                         IconButton(
@@ -377,7 +377,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             },
                             icon: const Icon(Icons.picture_in_picture,
                                 color: Colors.white)),
-                      // 弹幕开关
+                      // Danmaku switch
                       IconButton(
                         color: Colors.white,
                         icon: playerController.danmakuOn
@@ -392,9 +392,9 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                         onPressed: () {
                           widget.handleDanmaku();
                         },
-                        tooltip: playerController.danmakuOn ? '关闭弹幕' : '打开弹幕',
+                        tooltip: playerController.danmakuOn ? 'Turn off danmaku' : 'Turn on danmaku',
                       ),
-                      // 追番
+                      // Follow anime
                       CollectButton(
                         bangumiItem: videoPageController.bangumiItem,
                         onOpen: () {
@@ -446,10 +446,10 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                                       const EdgeInsets.fromLTRB(0, 10, 10, 10),
                                   child: Text(
                                     index + 1 == 1
-                                        ? '自动'
+                                        ? 'Auto'
                                         : index + 1 == 2
-                                            ? '裁切填充'
-                                            : '拉伸填充',
+                                            ? 'Crop Fill'
+                                            : 'Stretch Fill',
                                     style: TextStyle(
                                         color: index + 1 ==
                                                 playerController.aspectRatioType
@@ -463,7 +463,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             ),
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                              child: Text("视频比例"),
+                              child: Text("Video Ratio"),
                             ),
                           ),
                           SubmenuButton(
@@ -493,7 +493,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             ],
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                              child: Text("倍速"),
+                              child: Text("Speed"),
                             ),
                           ),
                           SubmenuButton(
@@ -507,10 +507,10 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                                       const EdgeInsets.fromLTRB(0, 10, 10, 10),
                                   child: Text(
                                     index + 1 == 1
-                                        ? '关闭'
+                                        ? 'Off'
                                         : index + 1 == 2
-                                            ? '效率档'
-                                            : '质量档',
+                                            ? 'Performance'
+                                            : 'Quality',
                                     style: TextStyle(
                                       color: playerController
                                                   .superResolutionType ==
@@ -526,7 +526,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             ),
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                              child: Text("超分辨率"),
+                              child: Text("Super Resolution"),
                             ),
                           ),
                           SubmenuButton(
@@ -535,14 +535,14 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
                                     child: Text(
-                                        "当前房间: ${playerController.syncplayRoom == '' ? '未加入' : playerController.syncplayRoom}"),
+                                        "Current Room: ${playerController.syncplayRoom == '' ? 'Not joined' : playerController.syncplayRoom}"),
                                   ),
                                 ),
                                 MenuItemButton(
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
                                     child: Text(
-                                        "网络延时: ${playerController.syncplayClientRtt}ms"),
+                                        "Network Latency: ${playerController.syncplayClientRtt}ms"),
                                   ),
                                 ),
                                 MenuItemButton(
@@ -551,7 +551,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                                   },
                                   child: const Padding(
                                     padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                                    child: Text("加入房间"),
+                                    child: Text("Join Room"),
                                   ),
                                 ),
                                 MenuItemButton(
@@ -560,7 +560,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                                   },
                                   child: const Padding(
                                     padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                                    child: Text("切换服务器"),
+                                    child: Text("Switch Server"),
                                   ),
                                 ),
                                 MenuItemButton(
@@ -569,20 +569,20 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                                   },
                                   child: const Padding(
                                     padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                                    child: Text("断开连接"),
+                                    child: Text("Disconnect"),
                                   ),
                                 ),
                               ],
                               child: const Padding(
                                   padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                                  child: Text("一起看"))),
+                                  child: Text("Watch Together"))),
                           MenuItemButton(
                             onPressed: () {
                               widget.showDanmakuSwitch();
                             },
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                              child: Text("弹幕切换"),
+                              child: Text("Danmaku Switch"),
                             ),
                           ),
                           MenuItemButton(
@@ -608,7 +608,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             },
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                              child: Text("弹幕设置"),
+                              child: Text("Danmaku Settings"),
                             ),
                           ),
                           MenuItemButton(
@@ -617,7 +617,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             },
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                              child: Text("视频详情"),
+                              child: Text("Video Details"),
                             ),
                           ),
                           MenuItemButton(
@@ -635,7 +635,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             },
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                              child: Text("远程投屏"),
+                              child: Text("Remote Cast"),
                             ),
                           ),
                           MenuItemButton(
@@ -644,7 +644,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
                             },
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                              child: Text("外部播放"),
+                              child: Text("External Player"),
                             ),
                           ),
                         ],
@@ -655,7 +655,7 @@ class _SmallestPlayerItemPanelState extends State<SmallestPlayerItemPanel> {
               ),
             ),
           ),
-          // 自定义播放器底部组件
+          // Custom player bottom component
           Positioned(
             bottom: 0,
             left: 0,

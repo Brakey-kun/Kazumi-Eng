@@ -94,7 +94,7 @@ class _EpisodeCommentsSheetState extends State<EpisodeCommentsSheet> {
             if (commentsQueryTimeout) {
               return const SliverFillRemaining(
                 child: Center(
-                  child: Text('空空如也'),
+                  child: Text('Nothing here'),
                 ),
               );
             }
@@ -134,7 +134,7 @@ class _EpisodeCommentsSheetState extends State<EpisodeCommentsSheet> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(' 本集标题  '),
+          const Text(' Episode Title  '),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,7 +168,7 @@ class _EpisodeCommentsSheetState extends State<EpisodeCommentsSheet> {
                 showEpisodeSelection();
               },
               child: const Text(
-                '手动切换',
+                'Manual Switch',
                 style: TextStyle(fontSize: 13),
               ),
             ),
@@ -178,13 +178,13 @@ class _EpisodeCommentsSheetState extends State<EpisodeCommentsSheet> {
     );
   }
 
-  // 选择要查看评论的集数
+  // Select episode number to view comments
   void showEpisodeSelection() {
     final TextEditingController textController = TextEditingController();
     KazumiDialog.show(
       builder: (context) {
         return AlertDialog(
-          title: const Text('输入集数'),
+          title: const Text('Enter Episode Number'),
           content: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
             return TextField(
@@ -198,14 +198,14 @@ class _EpisodeCommentsSheetState extends State<EpisodeCommentsSheet> {
             TextButton(
               onPressed: () => KazumiDialog.dismiss(),
               child: Text(
-                '取消',
+                'Cancel',
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
             TextButton(
               onPressed: () {
                 if (textController.text.isEmpty) {
-                  KazumiDialog.showToast(message: '请输入集数');
+                  KazumiDialog.showToast(message: 'Please enter episode number');
                   return;
                 }
                 ep = int.tryParse(textController.text) ?? 0;
@@ -215,7 +215,7 @@ class _EpisodeCommentsSheetState extends State<EpisodeCommentsSheet> {
                 _refreshIndicatorKey.currentState?.show();
                 KazumiDialog.dismiss();
               },
-              child: const Text('刷新'),
+              child: const Text('Refresh'),
             ),
           ],
         );

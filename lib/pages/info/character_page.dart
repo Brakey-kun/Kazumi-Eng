@@ -73,8 +73,8 @@ class _CharacterPageState extends State<CharacterPage> {
               child: Material(
                 child: TabBar(
                   tabs: [
-                    Tab(text: '人物资料'),
-                    Tab(text: '吐槽箱'),
+                    Tab(text: 'Character Profile'),
+                    Tab(text: 'Comments'),
                   ],
                 ),
               ),
@@ -101,13 +101,13 @@ class _CharacterPageState extends State<CharacterPage> {
                   ? const Center(child: CircularProgressIndicator())
                   : (characterFullItem.id == 0
                       ? GeneralErrorWidget(
-                          errMsg: '什么都没有找到 (´;ω;`)',
+                          errMsg: 'Nothing was found (´;ω;`)',
                           actions: [
                             GeneralErrorButton(
                               onPressed: () {
                                 loadCharacter();
                               },
-                              text: '点击重试',
+                              text: 'Click to retry',
                             ),
                           ],
                         )
@@ -165,7 +165,7 @@ class _CharacterPageState extends State<CharacterPage> {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
-                                            '基本信息',
+                                            'Basic Information',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleSmall
@@ -186,7 +186,7 @@ class _CharacterPageState extends State<CharacterPage> {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
-                                            '角色简介',
+                                            'Character Description',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleSmall
@@ -242,13 +242,13 @@ class _CharacterPageState extends State<CharacterPage> {
             if (commentsList.isEmpty) {
               return SliverFillRemaining(
                 child: GeneralErrorWidget(
-                  errMsg: '什么都没有找到 (´;ω;`)',
+                  errMsg: 'Nothing was found (´;ω;`)',
                   actions: [
                     GeneralErrorButton(
                       onPressed: () {
                         loadComments();
                       },
-                      text: '点击重试',
+                      text: 'Click to retry',
                     ),
                   ],
                 ),

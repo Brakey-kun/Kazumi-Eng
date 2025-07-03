@@ -640,7 +640,7 @@ class _VideoPageState extends State<VideoPage>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(' 合集 '),
+          const Text(' Playlist '),
           Expanded(
             child: Text(
               videoPageController.title,
@@ -661,16 +661,13 @@ class _VideoPageState extends State<VideoPage>
               onPressed: () {
                 KazumiDialog.show(builder: (context) {
                   return AlertDialog(
-                    title: const Text('播放列表'),
-                    content: StatefulBuilder(builder:
-                        (BuildContext context, StateSetter innerSetState) {
+                    title: const Text('Playlist'),
+                    content: StatefulBuilder(builder: (BuildContext context, StateSetter innerSetState) {
                       return Wrap(
                         spacing: 8,
                         runSpacing: Utils.isDesktop() ? 8 : 0,
                         children: [
-                          for (int i = 1;
-                              i <= videoPageController.roadList.length;
-                              i++) ...<Widget>[
+                          for (int i = 1; i <= videoPageController.roadList.length; i++) ...<Widget>[
                             if (i == currentRoad + 1) ...<Widget>[
                               FilledButton(
                                 onPressed: () {
@@ -679,7 +676,7 @@ class _VideoPageState extends State<VideoPage>
                                     currentRoad = i - 1;
                                   });
                                 },
-                                child: Text('播放列表$i'),
+                                child: Text('Playlist $i'),
                               ),
                             ] else ...[
                               FilledButton.tonal(
@@ -689,7 +686,7 @@ class _VideoPageState extends State<VideoPage>
                                     currentRoad = i - 1;
                                   });
                                 },
-                                child: Text('播放列表$i'),
+                                child: Text('Playlist $i'),
                               ),
                             ]
                           ]
@@ -700,7 +697,7 @@ class _VideoPageState extends State<VideoPage>
                 });
               },
               child: Text(
-                '播放列表${currentRoad + 1} ',
+                'Playlist ${currentRoad + 1} ',
                 style: const TextStyle(fontSize: 13),
               ),
             ),

@@ -34,23 +34,23 @@ abstract class _VideoPageController with Store {
   @observable
   int currentRoad = 0;
 
-  /// 全屏状态
+  /// Fullscreen state
   @observable
   bool isFullscreen = false;
 
-  /// 画中画状态
+  /// Picture-in-picture state
   @observable
   bool isPip = false;
 
-  /// 播放列表显示状态
+  /// Playlist display state
   @observable
   bool showTabBody = true;
 
-  /// 上次观看位置
+  /// Last watched position
   @observable
   int historyOffset = 0;
 
-  /// 和 bangumiItem 中的标题不同，此标题来自于视频源
+  /// Different from the title in bangumiItem, this title comes from the video source
   String title = '';
 
   String src = '';
@@ -68,7 +68,7 @@ abstract class _VideoPageController with Store {
     currentEpisode = episode;
     this.currentRoad = currentRoad;
     String chapterName = roadList[currentRoad].identifier[episode - 1];
-    KazumiLogger().log(Level.info, '跳转到$chapterName');
+    KazumiLogger().log(Level.info, 'Jumping to $chapterName');
     String urlItem = roadList[currentRoad].data[episode - 1];
     if (urlItem.contains(currentPlugin.baseUrl) ||
         urlItem.contains(currentPlugin.baseUrl.replaceAll('https', 'http'))) {
@@ -89,7 +89,7 @@ abstract class _VideoPageController with Store {
         .then((value) {
       episodeCommentsList.addAll(value.commentList);
     });
-    KazumiLogger().log(Level.info, '已加载评论列表长度 ${episodeCommentsList.length}');
+    KazumiLogger().log(Level.info, 'Loaded comment list length ${episodeCommentsList.length}');
   }
 
   Future<void> queryRoads(String url, String pluginName) async {
@@ -101,8 +101,8 @@ abstract class _VideoPageController with Store {
         roadList.addAll(await plugin.querychapterRoads(url));
       }
     }
-    KazumiLogger().log(Level.info, '播放列表长度 ${roadList.length}');
-    KazumiLogger().log(Level.info, '第一播放列表选集数 ${roadList[0].data.length}');
+    KazumiLogger().log(Level.info, 'Playlist length ${roadList.length}');
+    KazumiLogger().log(Level.info, 'Number of episodes in the first playlist ${roadList[0].data.length}');
   }
 
   void enterFullScreen() {

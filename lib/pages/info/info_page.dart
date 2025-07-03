@@ -177,7 +177,7 @@ class _InfoPageState extends State<InfoPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> tabs = <String>['概览', '吐槽', '角色', '评论', '制作人员'];
+    final List<String> tabs = <String>['Overview', 'Comments', 'Characters', 'Reviews', 'Staff'];
     final bool showWindowButton = GStorage.setting
         .get(SettingBoxKey.showWindowButton, defaultValue: false);
     return PopScope(
@@ -355,7 +355,7 @@ class _InfoPageState extends State<InfoPage> with TickerProviderStateMixin {
           ),
           floatingActionButton: FloatingActionButton.extended(
             icon: const Icon(Icons.play_arrow_rounded),
-            label: Text('开始观看'),
+            label: Text('Start Watching'),
             onPressed: () async {
               showModalBottomSheet(
                 isScrollControlled: true,

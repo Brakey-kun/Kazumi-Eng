@@ -37,19 +37,19 @@ class _PlayerSettingsPageState extends State<WebDavSettingsPage> {
         await setting.get(SettingBoxKey.webDavURL, defaultValue: '');
     if (webDavURL == '') {
       await setting.put(SettingBoxKey.webDavEnable, false);
-      KazumiDialog.showToast(message: '未找到有效的webdav配置');
+      KazumiDialog.showToast(message: 'No valid WebDAV configuration found');
       return;
     }
     try {
-      KazumiDialog.showToast(message: '尝试从WebDav同步');
+      KazumiDialog.showToast(message: 'Trying to sync from WebDav');
       var webDav = WebDav();
       await webDav.downloadAndPatchHistory();
-      KazumiDialog.showToast(message: '同步成功');
+      KazumiDialog.showToast(message: 'Sync successful');
     } catch (e) {
       if (e.toString().contains('Error: Not Found')) {
-        KazumiDialog.showToast(message: '配置成功, 这是一个不存在已有同步文件的全新WebDav');
+        KazumiDialog.showToast(message: 'Configuration successful, this is a new WebDav without existing sync files');
       } else {
-        KazumiDialog.showToast(message: '同步失败 ${e.toString()}');
+        KazumiDialog.showToast(message: 'Sync failed ${e.toString()}');
       }
     }
   }
@@ -58,12 +58,12 @@ class _PlayerSettingsPageState extends State<WebDavSettingsPage> {
     var webDavEnable =
         await setting.get(SettingBoxKey.webDavEnable, defaultValue: false);
     if (webDavEnable) {
-      KazumiDialog.showToast(message: '尝试上传到WebDav');
+      KazumiDialog.showToast(message: 'Trying to upload to WebDav');
       var webDav = WebDav();
       await webDav.updateHistory();
-      KazumiDialog.showToast(message: '同步成功');
+      KazumiDialog.showToast(message: 'Sync successful');
     } else {
-      KazumiDialog.showToast(message: '未开启WebDav同步或配置无效');
+      KazumiDialog.showToast(message: 'WebDav sync is not enabled or configuration is invalid');
     }
   }
 
@@ -72,15 +72,15 @@ class _PlayerSettingsPageState extends State<WebDavSettingsPage> {
         await setting.get(SettingBoxKey.webDavEnable, defaultValue: false);
     if (webDavEnable) {
       try {
-        KazumiDialog.showToast(message: '尝试从WebDav同步');
+        KazumiDialog.showToast(message: 'Trying to sync from WebDav');
         var webDav = WebDav();
         await webDav.downloadAndPatchHistory();
-        KazumiDialog.showToast(message: '同步成功');
+        KazumiDialog.showToast(message: 'Sync successful');
       } catch (e) {
-        KazumiDialog.showToast(message: '同步失败 ${e.toString()}');
+        KazumiDialog.showToast(message: 'Sync failed ${e.toString()}');
       }
     } else {
-      KazumiDialog.showToast(message: '未开启WebDav同步或配置无效');
+      KazumiDialog.showToast(message: 'WebDav sync is not enabled or configuration is invalid');
     }
   }
 
@@ -93,7 +93,7 @@ class _PlayerSettingsPageState extends State<WebDavSettingsPage> {
         onBackPressed(context);
       },
       child: Scaffold(
-        appBar: const SysAppBar(title: Text('同步设置')),
+        appBar: const SysAppBar(title: Text('Sync Settings')),
         body: Center(
           child: SizedBox(
             width: (MediaQuery.of(context).size.width > 1000) ? 1000 : null,
@@ -109,8 +109,8 @@ class _PlayerSettingsPageState extends State<WebDavSettingsPage> {
                             SettingBoxKey.enableGitProxy, enableGitProxy);
                         setState(() {});
                       },
-                      title: const Text('Github镜像'),
-                      description: const Text('使用镜像访问规则托管仓库'),
+                      title: const Text('Github Proxy'),
+                      description: const Text('Use a proxy to access Github repositories'),
                       initialValue: enableGitProxy,
                     ),
                   ],
@@ -128,13 +128,13 @@ class _PlayerSettingsPageState extends State<WebDavSettingsPage> {
                             SettingBoxKey.webDavEnable, webDavEnable);
                         setState(() {});
                       },
-                      title: const Text('WEBDAV同步'),
+                      title: const Text('WEBDAV Sync'),
                       initialValue: webDavEnable,
                     ),
                     SettingsTile.switchTile(
                       onToggle: (value) async {
                         if (!webDavEnable) {
-                          KazumiDialog.showToast(message: '请先开启WEBDAV同步');
+                          KazumiDialog.showToast(message: 'Please enable WEBDAV sync first');
                           return;
                         }
                         webDavEnableHistory = value ?? !webDavEnableHistory;
@@ -142,8 +142,8 @@ class _PlayerSettingsPageState extends State<WebDavSettingsPage> {
                             webDavEnableHistory);
                         setState(() {});
                       },
-                      title: const Text('观看记录同步'),
-                      description: const Text('允许自动同步观看记录'),
+                      title: const Text('Watch History Sync'),
+                      description: const Text('Allow automatic synchronization of watch history'),
                       initialValue: webDavEnableHistory,
                     ),
                     SettingsTile.navigation(
@@ -151,33 +151,33 @@ class _PlayerSettingsPageState extends State<WebDavSettingsPage> {
                         Modular.to.pushNamed('/settings/webdav/editor');
                       },
                       title: Text(
-                        'WEBDAV配置',
+                        'WEBDAV Configuration',
                         style: Theme.of(context).textTheme.titleMedium!,
                       ),
                     ),
                   ],
                 ),
                 SettingsSection(
-                  bottomInfo: const Text('立即上传观看记录到WEBDAV'),
+                  bottomInfo: const Text('Upload watch history to WEBDAV now'),
                   tiles: [
                     SettingsTile(
                       trailing: const Icon(Icons.cloud_upload_rounded),
                       onPressed: (_) {
                         updateWebdav();
                       },
-                      title: const Text('手动上传'),
+                      title: const Text('Manual Upload'),
                     ),
                   ],
                 ),
                 SettingsSection(
-                  bottomInfo: const Text('立即下载观看记录到本地'),
+                  bottomInfo: const Text('Download watch history to local now'),
                   tiles: [
                     SettingsTile(
                       trailing: const Icon(Icons.cloud_download_rounded),
                       onPressed: (_) {
                         downloadWebdav();
                       },
-                      title: const Text('手动下载'),
+                      title: const Text('Manual Download'),
                     ),
                   ],
                 ),

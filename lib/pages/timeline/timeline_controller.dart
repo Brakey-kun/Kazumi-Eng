@@ -29,7 +29,7 @@ abstract class _TimelineController with Store {
   }
 
   Future<void> getSchedulesBySeason() async {
-    // 4次获取，每次最多20部
+    // 4 fetches, each retrieving up to 20 items
     var time = 0;
     const maxTime = 4;
     const limit = 20;
@@ -48,6 +48,6 @@ abstract class _TimelineController with Store {
 
   void tryEnterSeason(DateTime date) {
     selectedDate = date;
-    seasonString = "加载中 ٩(◦`꒳´◦)۶";
+    seasonString = "Loading ٩(◦`꒳´◦)۶";
   }
 }

@@ -57,13 +57,13 @@ class _TimelinePageState extends State<TimelinePage>
 
   DateTime generateDateTime(int year, String season) {
     switch (season) {
-      case '冬':
+      case 'Winter':
         return DateTime(year, 1, 1);
-      case '春':
+      case 'Spring':
         return DateTime(year, 4, 1);
-      case '夏':
+      case 'Summer':
         return DateTime(year, 7, 1);
-      case '秋':
+      case 'Autumn':
         return DateTime(year, 10, 1);
       default:
         return DateTime.now();
@@ -71,16 +71,16 @@ class _TimelinePageState extends State<TimelinePage>
   }
 
   final List<Tab> tabs = const <Tab>[
-    Tab(text: '一'),
-    Tab(text: '二'),
-    Tab(text: '三'),
-    Tab(text: '四'),
-    Tab(text: '五'),
-    Tab(text: '六'),
-    Tab(text: '日'),
+    Tab(text: 'Mon'),
+    Tab(text: 'Tue'),
+    Tab(text: 'Wed'),
+    Tab(text: 'Thu'),
+    Tab(text: 'Fri'),
+    Tab(text: 'Sat'),
+    Tab(text: 'Sun'),
   ];
 
-  final seasons = ['秋', '夏', '春', '冬'];
+  final seasons = ['Autumn', 'Summer', 'Spring', 'Winter'];
 
   String getStringByDateTime(DateTime d) {
     return d.year.toString() + Utils.getSeasonStringByMonth(d.month);
@@ -127,7 +127,7 @@ class _TimelinePageState extends State<TimelinePage>
                       }
                     }
                     return AlertDialog(
-                      title: const Text("时间机器"),
+                      title: const Text("Time Machine"),
                       content: SingleChildScrollView(
                         child: Wrap(
                           spacing: 8,
@@ -183,7 +183,7 @@ class _TimelinePageState extends State<TimelinePage>
       );
     } else {
       return const Center(
-        child: Text('数据还没有更新 (´;ω;`)'),
+        child: Text('No data yet (´;ω;`)'),
       );
     }
   }

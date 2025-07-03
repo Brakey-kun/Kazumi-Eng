@@ -75,19 +75,20 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
   final FocusNode textFieldFocus = FocusNode();
 
   Future<void> _handleScreenshot() async {
-    KazumiDialog.showToast(message: '截图中...');
+    KazumiDialog.showToast(message: 'Taking screenshot...');
     try {
       Uint8List? screenshot =
           await playerController.screenshot(format: 'image/png');
       final result = await SaverGallery.saveImage(screenshot!,
           fileName: DateTime.timestamp().toString(), skipIfExists: false);
       if (result.isSuccess) {
-        KazumiDialog.showToast(message: '截图保存到相簿成功');
+        KazumiDialog.showToast(message: 'Screenshot saved to album successfully');
       } else {
-        KazumiDialog.showToast(message: '截图保存失败：${result.errorMessage}');
+        KazumiDialog.showToast(
+            message: 'Failed to save screenshot: ${result.errorMessage}');
       }
     } catch (e) {
-      KazumiDialog.showToast(message: '截图失败：$e');
+      KazumiDialog.showToast(message: 'Screenshot failed: $e');
     }
   }
 
@@ -108,7 +109,8 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
           filled: true,
           fillColor: Colors.white38,
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          hintText: playerController.danmakuOn ? '发个友善的弹幕见证当下' : '已关闭弹幕',
+          hintText:
+              playerController.danmakuOn ? 'Send a friendly danmaku' : 'Danmaku is off',
           hintStyle: TextStyle(
               fontSize: Utils.isDesktop() ? 15 : 13, color: Colors.white60),
           alignLabelWithHint: true,
@@ -136,7 +138,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
                 borderRadius: BorderRadius.circular(Utils.isDesktop() ? 8 : 20),
               ),
             ),
-            child: const Text('发送'),
+            child: const Text('Send'),
           ),
         ),
         onTapAlwaysCalled: true,
@@ -168,7 +170,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
     final double currentSpeed = playerController.playerSpeed;
     KazumiDialog.show(builder: (context) {
       return AlertDialog(
-        title: const Text('播放速度'),
+        title: const Text('Playback Speed'),
         content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
           return Wrap(
@@ -200,7 +202,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
           TextButton(
             onPressed: () => KazumiDialog.dismiss(),
             child: Text(
-              '取消',
+              'Cancel',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -209,7 +211,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
               await widget.setPlaybackSpeed(1.0);
               KazumiDialog.dismiss();
             },
-            child: const Text('默认速度'),
+            child: const Text('Default Speed'),
           ),
         ],
       );
@@ -220,7 +222,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
     KazumiDialog.show(builder: (context) {
       String input = "";
       return AlertDialog(
-        title: const Text('跳过秒数'),
+        title: const Text('Skip Seconds'),
         content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
           return TextField(
@@ -241,7 +243,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
           TextButton(
             onPressed: () => KazumiDialog.dismiss(),
             child: Text(
-              '取消',
+              'Cancel',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -254,7 +256,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
                 KazumiDialog.dismiss();
               }
             },
-            child: const Text('确定'),
+            child: const Text('Confirm'),
           ),
         ],
       );
@@ -290,7 +292,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
 
   Widget forwardIcon() {
     return Tooltip(
-      message: '长按修改时间',
+      message: 'Long press to change time',
       child: GestureDetector(
         onLongPress: () => showForwardChange(),
         child: IconButton(
@@ -392,8 +394,8 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
                             playerController.currentPosition.compareTo(
                                         playerController.playerPosition) >
                                     0
-                                ? '快进 ${playerController.currentPosition.inSeconds - playerController.playerPosition.inSeconds} 秒'
-                                : '快退 ${playerController.playerPosition.inSeconds - playerController.currentPosition.inSeconds} 秒',
+                                ? 'Forward ${playerController.currentPosition.inSeconds - playerController.playerPosition.inSeconds} s'
+                                : 'Rewind ${playerController.playerPosition.inSeconds - playerController.currentPosition.inSeconds} s',
                             style: const TextStyle(
                               color: Colors.white,
                             ),
@@ -419,7 +421,7 @@ class _PlayerItemPanelState extends State<PlayerItemPanel> {
                             children: <Widget>[
                               Icon(Icons.fast_forward, color: Colors.white),
                               Text(
-                                ' 倍速播放',
+                                ' Speed',
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),

@@ -32,34 +32,34 @@ abstract class _PlayerController with Store {
       Modular.get<VideoPageController>();
   final ShadersController shadersController = Modular.get<ShadersController>();
 
-  // 弹幕控制
+  // Danmaku control
   late DanmakuController danmakuController;
   @observable
   Map<int, List<Danmaku>> danDanmakus = {};
   @observable
   bool danmakuOn = false;
 
-  // 一起看控制器
+  // Syncplay controller
   SyncplayClient? syncplayController;
   @observable
   String syncplayRoom = '';
   @observable
   int syncplayClientRtt = 0;
 
-  /// 视频比例类型
+  /// Video aspect ratio type
   /// 1. AUTO
   /// 2. COVER
   /// 3. FILL
   @observable
   int aspectRatioType = 1;
 
-  /// 视频超分
+  /// Video super resolution
   /// 1. OFF
   /// 2. Anime4K
   @observable
   int superResolutionType = 1;
 
-  // 视频音量/亮度
+  // Video volume/brightness
   @observable
   double volume = -1;
   @observable
@@ -176,7 +176,7 @@ abstract class _PlayerController with Store {
           .roadList[videoPageController.currentRoad]
           .identifier[videoPageController.currentEpisode - 1]);
     } catch (e) {
-      KazumiLogger().log(Level.error, '从标题解析集数错误 ${e.toString()}');
+      KazumiLogger().log(Level.error, 'Error parsing episode number from title ${e.toString()}');
     }
     if (episodeFromTitle == 0) {
       episodeFromTitle = videoPageController.currentEpisode;
@@ -187,7 +187,7 @@ abstract class _PlayerController with Store {
       videoPageController.bangumiItem.nameCn,
       videoPageController.bangumiItem.name
     ].where((title) => title.isNotEmpty).toList();
-    // 根据标题列表获取弹幕,优先级: 视频源标题 > 番剧中文名 > 番剧日文名
+    // Get danmaku based on the title list, priority: video source title > anime Chinese name > anime Japanese name
     getDanDanmaku(titleList, episodeFromTitle);
     mediaPlayer = await createVideoController(offset: offset);
     playerSpeed =
@@ -203,7 +203,7 @@ abstract class _PlayerController with Store {
       });
     }
     setPlaybackSpeed(playerSpeed);
-    KazumiLogger().log(Level.info, 'VideoURL初始化完成');
+    KazumiLogger().log(Level.info, 'VideoURL initialization completed');
     loading = false;
     if (syncplayController?.isConnected ?? false) {
       if (syncplayController!.currentFileName !=
@@ -245,7 +245,7 @@ abstract class _PlayerController with Store {
       ),
     );
 
-    // 记录播放器内部日志
+    // Record player internal log
     playerLog.clear();
     await playerLogSubscription?.cancel();
     playerLogSubscription = mediaPlayer.stream.log.listen((event) {
@@ -256,9 +256,9 @@ abstract class _PlayerController with Store {
     });
 
     var pp = mediaPlayer.platform as NativePlayer;
-    // media-kit 默认启用硬盘作为双重缓存，这可以维持大缓存的前提下减轻内存压力
-    // media-kit 内部硬盘缓存目录按照 Linux 配置，这导致该功能在其他平台上被损坏
-    // 该设置可以在所有平台上正确启用双重缓存
+    // media-kit enables disk as a dual cache by default, which can reduce memory pressure while maintaining a large cache
+    // media-kit's internal disk cache directory is configured according to Linux, which causes this function to be corrupted on other platforms
+    // This setting can correctly enable dual cache on all platforms
     await pp.setProperty("demuxer-cache-dir", await Utils.getPlayerTempPath());
     await pp.setProperty("af", "scaletempo2=max-speed=8");
     if (Platform.isAndroid) {
@@ -286,7 +286,7 @@ abstract class _PlayerController with Store {
     mediaPlayer.stream.error.listen((event) {
       if (showPlayerError) {
         KazumiDialog.showToast(
-            message: '播放器内部错误 ${event.toString()} $videoUrl',
+            message: 'Player internal error ${event.toString()} $videoUrl',
             duration: const Duration(seconds: 5),
             showActionButton: true);
       }
@@ -342,7 +342,7 @@ abstract class _PlayerController with Store {
     try {
       mediaPlayer.setRate(playerSpeed);
     } catch (e) {
-      KazumiLogger().log(Level.error, '设置播放速度失败 ${e.toString()}');
+      KazumiLogger().log(Level.error, 'Failed to set playback speed ${e.toString()}');
     }
   }
 
@@ -436,25 +436,25 @@ abstract class _PlayerController with Store {
   }
 
   Future<void> getDanDanmaku(List<String> titleList, int episode) async {
-    KazumiLogger().log(Level.info, '尝试获取弹幕 $titleList');
+    KazumiLogger().log(Level.info, 'Attempting to get danmaku $titleList');
     try {
       danDanmakus.clear();
       bangumiID = await DanmakuRequest.getBangumiIDByTitles(titleList);
       var res = await DanmakuRequest.getDanDanmaku(bangumiID, episode);
       addDanmakus(res);
     } catch (e) {
-      KazumiLogger().log(Level.warning, '获取弹幕错误 ${e.toString()}');
+      KazumiLogger().log(Level.warning, 'Error getting danmaku ${e.toString()}');
     }
   }
 
   Future<void> getDanDanmakuByEpisodeID(int episodeID) async {
-    KazumiLogger().log(Level.info, '尝试获取弹幕 $episodeID');
+    KazumiLogger().log(Level.info, 'Attempting to get danmaku $episodeID');
     try {
       danDanmakus.clear();
       var res = await DanmakuRequest.getDanDanmakuByEpisodeID(episodeID);
       addDanmakus(res);
     } catch (e) {
-      KazumiLogger().log(Level.warning, '获取弹幕错误 ${e.toString()}');
+      KazumiLogger().log(Level.warning, 'Error getting danmaku ${e.toString()}');
     }
   }
 
@@ -473,22 +473,22 @@ abstract class _PlayerController with Store {
       if (await ExternalPlayer.launchURLWithMIME(videoUrl, 'video/mp4')) {
         KazumiDialog.dismiss();
         KazumiDialog.showToast(
-          message: '尝试唤起外部播放器',
+          message: 'Trying to launch external player',
         );
       } else {
         KazumiDialog.showToast(
-          message: '唤起外部播放器失败',
+          message: 'Failed to launch external player',
         );
       }
     } else if (Platform.isMacOS || Platform.isIOS) {
       if (await ExternalPlayer.launchURLWithReferer(videoUrl, referer)) {
         KazumiDialog.dismiss();
         KazumiDialog.showToast(
-          message: '尝试唤起外部播放器',
+          message: 'Trying to launch external player',
         );
       } else {
         KazumiDialog.showToast(
-          message: '唤起外部播放器失败',
+          message: 'Failed to launch external player',
         );
       }
     } else if (Platform.isLinux && referer.isEmpty) {
@@ -496,7 +496,7 @@ abstract class _PlayerController with Store {
       if (await canLaunchUrlString(videoUrl)) {
         launchUrlString(videoUrl);
         KazumiDialog.showToast(
-          message: '尝试唤起外部播放器',
+          message: 'Trying to launch external player',
         );
       } else {
         KazumiDialog.showToast(

@@ -57,7 +57,7 @@ class _SourceSheetState extends State<SourceSheet>
 
   void showAliasSearchDialog(String pluginName) {
     if (widget.infoController.bangumiItem.alias.isEmpty) {
-      KazumiDialog.showToast(message: '无可用别名，试试手动检索');
+      KazumiDialog.showToast(message: 'No aliases available, try manual search');
       return;
     }
     final aliasNotifier =
@@ -80,15 +80,16 @@ class _SourceSheetState extends State<SourceSheet>
                       KazumiDialog.show(
                         builder: (context) {
                           return AlertDialog(
-                            title: const Text('删除确认'),
-                            content: const Text('删除后无法恢复，确认要永久删除这个别名吗？'),
+                            title: const Text('Confirm Deletion'),
+                            content:
+                                const Text('This alias cannot be recovered after deletion. Are you sure you want to permanently delete it?'),
                             actions: [
                               TextButton(
                                 onPressed: () {
                                   KazumiDialog.dismiss();
                                 },
                                 child: Text(
-                                  '取消',
+                                  'Cancel',
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -107,7 +108,7 @@ class _SourceSheetState extends State<SourceSheet>
                                     Navigator.of(context).pop();
                                   }
                                 },
-                                child: const Text('确认'),
+                                child: const Text('Confirm'),
                               ),
                             ],
                           );
@@ -134,7 +135,7 @@ class _SourceSheetState extends State<SourceSheet>
       builder: (context) {
         final TextEditingController textController = TextEditingController();
         return AlertDialog(
-          title: const Text('输入别名'),
+          title: const Text('Enter Alias'),
           content: TextField(
             controller: textController,
             onSubmitted: (keyword) {
@@ -152,7 +153,7 @@ class _SourceSheetState extends State<SourceSheet>
                 KazumiDialog.dismiss();
               },
               child: Text(
-                '取消',
+                'Cancel',
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
@@ -168,7 +169,7 @@ class _SourceSheetState extends State<SourceSheet>
                 }
               },
               child: const Text(
-                '确认',
+                'Confirm',
               ),
             ),
           ],
@@ -273,7 +274,7 @@ class _SourceSheetState extends State<SourceSheet>
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(12),
                                 onTap: () async {
-                                  KazumiDialog.showLoading(msg: '获取中');
+                                  KazumiDialog.showLoading(msg: 'Fetching');
                                   videoPageController.bangumiItem =
                                       widget.infoController.bangumiItem;
                                   videoPageController.currentPlugin = plugin;
@@ -308,21 +309,21 @@ class _SourceSheetState extends State<SourceSheet>
                                     .pluginSearchStatus[plugin.name] ==
                                 'error'
                             ? GeneralErrorWidget(
-                                errMsg: '${plugin.name} 检索失败 重试或左右滑动以切换到其他视频来源',
+                                errMsg: '${plugin.name} search failed. Retry or swipe to switch to other video sources.',
                                 actions: [
                                   GeneralErrorButton(
                                     onPressed: () {
                                       queryManager?.querySource(
                                           keyword, plugin.name);
                                     },
-                                    text: '重试',
+                                    text: 'Retry',
                                   ),
                                 ],
                               )
                             : cardList.isEmpty
                                 ? GeneralErrorWidget(
                                     errMsg:
-                                        '${plugin.name} 无结果 使用别名或左右滑动以切换到其他视频来源',
+                                        '${plugin.name} no results. Use alias or swipe to switch to other video sources.',
                                     actions: [
                                       GeneralErrorButton(
                                         onPressed: () {
@@ -330,7 +331,7 @@ class _SourceSheetState extends State<SourceSheet>
                                             plugin.name,
                                           );
                                         },
-                                        text: '别名检索',
+                                        text: 'Alias Search',
                                       ),
                                       GeneralErrorButton(
                                         onPressed: () {
@@ -338,7 +339,7 @@ class _SourceSheetState extends State<SourceSheet>
                                             plugin.name,
                                           );
                                         },
-                                        text: '手动检索',
+                                        text: 'Manual Search',
                                       ),
                                     ],
                                   )

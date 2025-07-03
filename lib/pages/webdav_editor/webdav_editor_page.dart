@@ -38,7 +38,7 @@ class _WebDavEditorPageState extends State<WebDavEditorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const SysAppBar(
-        title: Text('WEBDAV编辑'),
+        title: Text('WEBDAV Editor'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -79,7 +79,7 @@ class _WebDavEditorPageState extends State<WebDavEditorPage> {
                 ),
                 // const SizedBox(height: 20),
                 // ExpansionTile(
-                //   title: const Text('高级选项'),
+                //   title: const Text('Advanced Options'),
                 //   children: [],
                 // ),
               ],
@@ -99,16 +99,16 @@ class _WebDavEditorPageState extends State<WebDavEditorPage> {
           try {
             await webDav.init();
           } catch (e) {
-            KazumiDialog.showToast(message: '配置失败 ${e.toString()}');
+            KazumiDialog.showToast(message: 'Configuration failed ${e.toString()}');
             await setting.put(SettingBoxKey.webDavEnable, false);
             return;
           }
-          KazumiDialog.showToast(message: '配置成功, 开始测试');
+          KazumiDialog.showToast(message: 'Configuration successful, starting test');
           try {
             await webDav.ping();
-            KazumiDialog.showToast(message: '测试成功');
+            KazumiDialog.showToast(message: 'Test successful');
           } catch (e) {
-            KazumiDialog.showToast(message: '测试失败 ${e.toString()}');
+            KazumiDialog.showToast(message: 'Test failed ${e.toString()}');
             await setting.put(SettingBoxKey.webDavEnable, false);
           }
         },

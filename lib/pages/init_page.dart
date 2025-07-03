@@ -60,17 +60,17 @@ class _InitPageState extends State<InitPage> {
         await setting.get(SettingBoxKey.webDavEnable, defaultValue: false);
     if (webDavEnable) {
       var webDav = WebDav();
-      KazumiLogger().log(Level.info, '开始从WEBDAV同步记录');
+      KazumiLogger().log(Level.info, 'Start syncing records from WEBDAV');
       try {
         await webDav.init();
         try {
           await webDav.downloadAndPatchHistory();
-          KazumiLogger().log(Level.info, '同步观看记录完成');
+          KazumiLogger().log(Level.info, 'Sync watch history completed');
         } catch (e) {
-          KazumiLogger().log(Level.error, '同步观看记录失败 ${e.toString()}');
+          KazumiLogger().log(Level.error, 'Sync watch history failed ${e.toString()}');
         }
       } catch (e) {
-        KazumiLogger().log(Level.error, '初始化WebDav失败 ${e.toString()}');
+        KazumiLogger().log(Level.error, 'WebDav initialization failed ${e.toString()}');
       }
     }
   }
@@ -90,7 +90,7 @@ class _InitPageState extends State<InitPage> {
           return PopScope(
             canPop: false,
             child: AlertDialog(
-              title: const Text('免责声明'),
+              title: const Text('Disclaimer'),
               scrollable: true,
               content: Text(statementsText),
               actions: [
@@ -99,7 +99,7 @@ class _InitPageState extends State<InitPage> {
                     exit(0);
                   },
                   child: Text(
-                    '退出',
+                    'Exit',
                     style:
                         TextStyle(color: Theme.of(context).colorScheme.outline),
                   ),
@@ -116,7 +116,7 @@ class _InitPageState extends State<InitPage> {
                     }
                     _switchUpdateMirror();
                   },
-                  child: const Text('已阅读并同意'),
+                  child: const Text('Read and agreed'),
                 ),
               ],
             ),
@@ -124,18 +124,12 @@ class _InitPageState extends State<InitPage> {
         },
       );
     } else {
-      // Workaround for dynamic_color. dynamic_color need PlatformChannel to get color, it takes time.
-      // setDynamic here to avoid white screen flash when themeMode is dark.
       themeProvider.setDynamic(
           setting.get(SettingBoxKey.useDynamicColor, defaultValue: false));
       Modular.to.navigate('/tab/popular/');
     }
   }
 
-  // The function is not completed yet
-  // We simply disable update when the user is using F-Droid mirror
-  // We are trying to meet F-Droid requirement to submit the app
-  // After the app is submitted, we will complete the function
   Future<void> _switchUpdateMirror() async {
     await KazumiDialog.show(
       clickMaskDismiss: false,
@@ -143,7 +137,7 @@ class _InitPageState extends State<InitPage> {
         return PopScope(
           canPop: false,
           child: AlertDialog(
-            title: const Text('更新镜像'),
+            title: const Text('Update Mirror'),
             content: const Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,14 +145,14 @@ class _InitPageState extends State<InitPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text(
-                    '您希望从哪里获取应用更新？',
+                    'Where would you like to get app updates from?',
                     textAlign: TextAlign.left,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text(
-                    'Github镜像为大多数情况下的最佳选择。如果您使用F-Droid应用商店, 请选择F-Droid镜像。',
+                    'The GitHub mirror is the best choice in most cases. If you use the F-Droid app store, please select the F-Droid mirror.',
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -195,8 +189,6 @@ class _InitPageState extends State<InitPage> {
   }
 
   Future<void> _update() async {
-    // Don't check update when there is no plugin.
-    // We will progress init workflow instead.
     await Future.delayed(const Duration(seconds: 1));
     if (pluginsController.pluginList.isNotEmpty) {
       bool autoUpdate =
@@ -216,22 +208,22 @@ class _InitPageState extends State<InitPage> {
       }
     }
     if (count != 0) {
-      KazumiDialog.showToast(message: '检测到 $count 条规则可以更新');
+      KazumiDialog.showToast(message: 'Detected $count rules that can be updated');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    /// 适配平板设备
+    /// Adapt to tablet devices
     Box setting = GStorage.setting;
     bool isWideScreen = MediaQuery.of(context).size.shortestSide >= 600 &&
         (MediaQuery.of(context).size.shortestSide /
                 MediaQuery.of(context).size.longestSide >=
             9 / 16);
     if (isWideScreen) {
-      KazumiLogger().log(Level.info, '当前设备宽屏');
+      KazumiLogger().log(Level.info, 'Current device is widescreen');
     } else {
-      KazumiLogger().log(Level.info, '当前设备非宽屏');
+      KazumiLogger().log(Level.info, 'Current device is not widescreen');
     }
     setting.put(SettingBoxKey.isWideScreen, isWideScreen);
     return const LoadingWidget();

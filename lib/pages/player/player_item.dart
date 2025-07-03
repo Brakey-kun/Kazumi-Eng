@@ -68,16 +68,16 @@ class _PlayerItemState extends State<PlayerItem>
   final CollectController collectController = Modular.get<CollectController>();
   final MyController myController = Modular.get<MyController>();
 
-  // 1. 在看
-  // 2. 想看
-  // 3. 搁置
-  // 4. 看过
-  // 5. 抛弃
+  // 1. Watching
+  // 2. Want to watch
+  // 3. On hold
+  // 4. Completed
+  // 5. Dropped
   late int collectType;
   late bool webDavEnable;
   late bool webDavEnableHistory;
 
-  // 弹幕
+  // Danmaku
   final _danmuKey = GlobalKey();
   late bool _border;
   late double _opacity;
@@ -94,7 +94,7 @@ class _PlayerItemState extends State<PlayerItem>
   late bool _danmakuDanDanSource;
   late int _danmakuFontWeight;
 
-  // 硬件解码
+  // Hardware acceleration
   late bool haEnable;
 
   Timer? hideTimer;
@@ -102,7 +102,7 @@ class _PlayerItemState extends State<PlayerItem>
   Timer? mouseScrollerTimer;
   Timer? hideVolumeUITimer;
 
-  // 过渡动画控制器
+  // Transition animation controller
   AnimationController? animationController;
 
   double lastPlayerSpeed = 1.0;
@@ -110,7 +110,7 @@ class _PlayerItemState extends State<PlayerItem>
 
   late mobx.ReactionDisposer _fullscreenListener;
 
-  /// 处理 Android/iOS 应用后台或熄屏
+  /// Handle Android/iOS app background or screen off
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
@@ -289,7 +289,7 @@ class _PlayerItemState extends State<PlayerItem>
       playerController.buffer = playerController.playerBuffer;
       playerController.duration = playerController.playerDuration;
       playerController.completed = playerController.playerCompleted;
-      // 弹幕相关
+      // Danmaku related
       if (playerController.currentPosition.inMicroseconds != 0 &&
           playerController.playerPlaying == true &&
           playerController.danmakuOn == true) {
@@ -334,7 +334,7 @@ class _PlayerItemState extends State<PlayerItem>
                   : null);
         });
       }
-      // 音量相关
+      // Volume related
       if (!playerController.volumeSeeking) {
         if (Utils.isDesktop()) {
           playerController.volume = playerController.playerVolume;
@@ -345,7 +345,7 @@ class _PlayerItemState extends State<PlayerItem>
           });
         }
       }
-      // 亮度相关
+      // Brightness related
       if (!Platform.isWindows &&
           !Platform.isMacOS &&
           !Platform.isLinux &&
@@ -354,7 +354,7 @@ class _PlayerItemState extends State<PlayerItem>
           playerController.brightness = value;
         });
       }
-      // 历史记录相关
+      // History related
       if (playerController.playerPlaying && !videoPageController.loading) {
         historyController.updateHistory(
             videoPageController.currentEpisode,
@@ -366,7 +366,7 @@ class _PlayerItemState extends State<PlayerItem>
             videoPageController.roadList[videoPageController.currentRoad]
                 .identifier[videoPageController.currentEpisode - 1]);
       }
-      // 自动播放下一集
+      // Auto play next episode
       if (playerController.completed &&
           videoPageController.currentEpisode <
               videoPageController
@@ -374,21 +374,21 @@ class _PlayerItemState extends State<PlayerItem>
           !videoPageController.loading) {
         KazumiDialog.showToast(
             message:
-                '正在加载${videoPageController.roadList[videoPageController.currentRoad].identifier[videoPageController.currentEpisode]}');
+                'Loading ${videoPageController.roadList[videoPageController.currentRoad].identifier[videoPageController.currentEpisode]}');
         try {
           playerTimer!.cancel();
         } catch (_) {}
         widget.changeEpisode(videoPageController.currentEpisode + 1,
             currentRoad: videoPageController.currentRoad);
       }
-      // 一起去看相关
+      // SyncPlay related
       playerController.setSyncPlayCurrentPosition();
     });
   }
 
   void showDanmakuSearchDialog(String keyword) async {
     KazumiDialog.dismiss();
-    KazumiDialog.showLoading(msg: '弹幕检索中');
+    KazumiDialog.showLoading(msg: 'Searching danmaku');
     DanmakuSearchResponse danmakuSearchResponse;
     DanmakuEpisodeResponse danmakuEpisodeResponse;
     try {
@@ -396,12 +396,12 @@ class _PlayerItemState extends State<PlayerItem>
           await DanmakuRequest.getDanmakuSearchResponse(keyword);
     } catch (e) {
       KazumiDialog.dismiss();
-      KazumiDialog.showToast(message: '弹幕检索错误: ${e.toString()}');
+      KazumiDialog.showToast(message: 'Danmaku search error: ${e.toString()}');
       return;
     }
     KazumiDialog.dismiss();
     if (danmakuSearchResponse.animes.isEmpty) {
-      KazumiDialog.showToast(message: '未找到匹配结果');
+      KazumiDialog.showToast(message: 'No matching results found');
       return;
     }
     await KazumiDialog.show(builder: (context) {
@@ -413,19 +413,19 @@ class _PlayerItemState extends State<PlayerItem>
               title: Text(danmakuInfo.animeTitle),
               onTap: () async {
                 KazumiDialog.dismiss();
-                KazumiDialog.showLoading(msg: '弹幕检索中');
+                KazumiDialog.showLoading(msg: 'Searching danmaku');
                 try {
                   danmakuEpisodeResponse =
                       await DanmakuRequest.getDanDanEpisodesByBangumiID(
                           danmakuInfo.animeId);
                 } catch (e) {
                   KazumiDialog.dismiss();
-                  KazumiDialog.showToast(message: '弹幕检索错误: ${e.toString()}');
+                  KazumiDialog.showToast(message: 'Danmaku search error: ${e.toString()}');
                   return;
                 }
                 KazumiDialog.dismiss();
                 if (danmakuEpisodeResponse.episodes.isEmpty) {
-                  KazumiDialog.showToast(message: '未找到匹配结果');
+                  KazumiDialog.showToast(message: 'No matching results found');
                   return;
                 }
                 KazumiDialog.show(builder: (context) {
@@ -437,7 +437,7 @@ class _PlayerItemState extends State<PlayerItem>
                           title: Text(episode.episodeTitle),
                           onTap: () {
                             KazumiDialog.dismiss();
-                            KazumiDialog.showToast(message: '弹幕切换中');
+                            KazumiDialog.showToast(message: 'Switching danmaku');
                             playerController
                                 .getDanDanmakuByEpisodeID(episode.episodeId);
                           },
@@ -454,7 +454,7 @@ class _PlayerItemState extends State<PlayerItem>
     });
   }
 
-  // 弹幕查询
+  // Danmaku search
   void showDanmakuSwitch() {
     KazumiDialog.show(
       builder: (context) {
@@ -462,11 +462,11 @@ class _PlayerItemState extends State<PlayerItem>
             TextEditingController();
         searchTextController.text = videoPageController.title;
         return AlertDialog(
-          title: const Text('弹幕检索'),
+          title: const Text('Danmaku Search'),
           content: TextField(
             controller: searchTextController,
             decoration: const InputDecoration(
-              hintText: '番剧名',
+              hintText: 'Anime name',
             ),
             onSubmitted: (keyword) {
               showDanmakuSearchDialog(keyword);
@@ -479,7 +479,7 @@ class _PlayerItemState extends State<PlayerItem>
                 widget.keyboardFocus.requestFocus();
               },
               child: Text(
-                '取消',
+                'Cancel',
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
@@ -488,7 +488,7 @@ class _PlayerItemState extends State<PlayerItem>
                 showDanmakuSearchDialog(searchTextController.text);
               },
               child: const Text(
-                '提交',
+                'Submit',
               ),
             ),
           ],
@@ -504,7 +504,7 @@ class _PlayerItemState extends State<PlayerItem>
           title: const Text("Source"),
           subtitle: Text(playerController.videoUrl),
           onTap: () {
-            KazumiDialog.showToast(message: '已复制到剪贴板');
+            KazumiDialog.showToast(message: 'Copied to clipboard');
             Clipboard.setData(
               ClipboardData(text: playerController.videoUrl),
             );
@@ -515,7 +515,7 @@ class _PlayerItemState extends State<PlayerItem>
           subtitle: Text(
               '${playerController.playerWidth}x${playerController.playerHeight}'),
           onTap: () {
-            KazumiDialog.showToast(message: '已复制到剪贴板');
+            KazumiDialog.showToast(message: 'Copied to clipboard');
             Clipboard.setData(
               ClipboardData(
                 text:
@@ -528,7 +528,7 @@ class _PlayerItemState extends State<PlayerItem>
           title: const Text("VideoParams"),
           subtitle: Text(playerController.playerVideoParams.toString()),
           onTap: () {
-            KazumiDialog.showToast(message: '已复制到剪贴板');
+            KazumiDialog.showToast(message: 'Copied to clipboard');
             Clipboard.setData(
               ClipboardData(
                 text:
@@ -541,7 +541,7 @@ class _PlayerItemState extends State<PlayerItem>
           title: const Text("AudioParams"),
           subtitle: Text(playerController.playerAudioParams.toString()),
           onTap: () {
-            KazumiDialog.showToast(message: '已复制到剪贴板');
+            KazumiDialog.showToast(message: 'Copied to clipboard');
             Clipboard.setData(
               ClipboardData(
                 text:
@@ -554,7 +554,7 @@ class _PlayerItemState extends State<PlayerItem>
           title: const Text("Media"),
           subtitle: Text(playerController.playerPlaylist.toString()),
           onTap: () {
-            KazumiDialog.showToast(message: '已复制到剪贴板');
+            KazumiDialog.showToast(message: 'Copied to clipboard');
             Clipboard.setData(
               ClipboardData(
                 text: "Media\n${playerController.playerPlaylist.toString()}",
@@ -566,7 +566,7 @@ class _PlayerItemState extends State<PlayerItem>
           title: const Text("AudioTrack"),
           subtitle: Text(playerController.playerAudioTracks.toString()),
           onTap: () {
-            KazumiDialog.showToast(message: '已复制到剪贴板');
+            KazumiDialog.showToast(message: 'Copied to clipboard');
             Clipboard.setData(
               ClipboardData(
                 text:
@@ -579,7 +579,7 @@ class _PlayerItemState extends State<PlayerItem>
           title: const Text("VideoTrack"),
           subtitle: Text(playerController.playerVideoTracks.toString()),
           onTap: () {
-            KazumiDialog.showToast(message: '已复制到剪贴板');
+            KazumiDialog.showToast(message: 'Copied to clipboard');
             Clipboard.setData(
               ClipboardData(
                 text:
@@ -592,7 +592,7 @@ class _PlayerItemState extends State<PlayerItem>
           title: const Text("AudioBitrate"),
           subtitle: Text(playerController.playerAudioBitrate.toString()),
           onTap: () {
-            KazumiDialog.showToast(message: '已复制到剪贴板');
+            KazumiDialog.showToast(message: 'Copied to clipboard');
             Clipboard.setData(
               ClipboardData(
                 text:
@@ -642,8 +642,8 @@ class _PlayerItemState extends State<PlayerItem>
                     child: Material(
                       child: TabBar(
                         tabs: [
-                          Tab(text: '状态'),
-                          Tab(text: '日志'),
+                          Tab(text: 'Status'),
+                          Tab(text: 'Log'),
                         ],
                       ),
                     ),
@@ -665,11 +665,11 @@ class _PlayerItemState extends State<PlayerItem>
 
   void showSyncPlayEndPointSwitchDialog() {
     if (playerController.syncplayController != null) {
-      KazumiDialog.showToast(message: 'SyncPlay: 请先退出当前房间再切换服务器');
+      KazumiDialog.showToast(message: 'SyncPlay: Please exit the current room before switching servers');
       return;
     }
 
-    final String defaultCustomSyncPlayEndPoint = '自定义服务器';
+    final String defaultCustomSyncPlayEndPoint = 'Custom server';
     String customSyncPlayEndPoint = defaultCustomSyncPlayEndPoint;
     String selectedSyncPlayEndPoint = setting.get(
         SettingBoxKey.syncPlayEndPoint,
@@ -685,7 +685,7 @@ class _PlayerItemState extends State<PlayerItem>
             syncPlayEndPoints.add(selectedSyncPlayEndPoint);
           }
           return AlertDialog(
-            title: const Text('选择服务器'),
+            title: const Text('Select Server'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -710,22 +710,22 @@ class _PlayerItemState extends State<PlayerItem>
                           KazumiDialog.show(
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('自定义服务器'),
+                                title: const Text('Custom Server'),
                                 content: TextField(
                                   controller: serverTextController,
                                   decoration: const InputDecoration(
-                                    hintText: '请输入服务器地址',
+                                    hintText: 'Enter server address',
                                   ),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: const Text('取消'),
+                                    child: const Text('Cancel'),
                                     onPressed: () {
                                       KazumiDialog.dismiss();
                                     },
                                   ),
                                   TextButton(
-                                    child: const Text('确认'),
+                                    child: const Text('Confirm'),
                                     onPressed: () {
                                       if (serverTextController
                                               .text.isNotEmpty &&
@@ -740,7 +740,7 @@ class _PlayerItemState extends State<PlayerItem>
                                         });
                                       } else {
                                         KazumiDialog.showToast(
-                                            message: '服务器地址不能重复或为空');
+                                            message: 'Server address cannot be duplicate or empty');
                                       }
                                     },
                                   ),
@@ -761,13 +761,13 @@ class _PlayerItemState extends State<PlayerItem>
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('取消'),
+                child: const Text('Cancel'),
                 onPressed: () {
                   KazumiDialog.dismiss();
                 },
               ),
               TextButton(
-                child: const Text('确认'),
+                child: const Text('Confirm'),
                 onPressed: () {
                   setting.put(
                     SettingBoxKey.syncPlayEndPoint,
@@ -789,7 +789,7 @@ class _PlayerItemState extends State<PlayerItem>
     final TextEditingController usernameController = TextEditingController();
     KazumiDialog.show(builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('加入房间'),
+        title: const Text('Join Room'),
         content: Form(
           key: formKey,
           child: Column(
@@ -799,15 +799,15 @@ class _PlayerItemState extends State<PlayerItem>
                 controller: roomController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: '房间号',
+                  labelText: 'Room Number',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return '请输入房间号';
+                    return 'Please enter room number';
                   }
                   final regex = RegExp(r'^[0-9]{6,10}$');
                   if (!regex.hasMatch(value)) {
-                    return '房间号需要6到10位数字';
+                    return 'Room number must be 6 to 10 digits';
                   }
                   return null;
                 },
@@ -816,15 +816,15 @@ class _PlayerItemState extends State<PlayerItem>
               TextFormField(
                 controller: usernameController,
                 decoration: const InputDecoration(
-                  labelText: '用户名',
+                  labelText: 'Username',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return '请输入用户名';
+                    return 'Please enter username';
                   }
                   final regex = RegExp(r'^[a-zA-Z]{4,12}$');
                   if (!regex.hasMatch(value)) {
-                    return '用户名必须为4到12位英文字符';
+                    return 'Username must be 4 to 12 English characters';
                   }
                   return null;
                 },
@@ -837,7 +837,7 @@ class _PlayerItemState extends State<PlayerItem>
             onPressed: () {
               KazumiDialog.dismiss();
             },
-            child: const Text('取消'),
+            child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
@@ -847,7 +847,7 @@ class _PlayerItemState extends State<PlayerItem>
                     usernameController.text, widget.changeEpisode);
               }
             },
-            child: const Text('确定'),
+            child: const Text('Confirm'),
           ),
         ],
       );
@@ -880,8 +880,7 @@ class _PlayerItemState extends State<PlayerItem>
   void onWindowRestore() {
     playerController.danmakuController.onClear();
   }
-
-  @override
+@override
   void initState() {
     super.initState();
     _fullscreenListener = mobx.reaction<bool>(
@@ -1014,23 +1013,23 @@ class _PlayerItemState extends State<PlayerItem>
                             autofocus: Utils.isDesktop(),
                             onKeyEvent: (focusNode, KeyEvent event) {
                               if (event is KeyDownEvent) {
-                                // 当空格键被按下时
+                                // When space key is pressed
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.space) {
                                   try {
                                     playerController.playOrPause();
                                   } catch (e) {
                                     KazumiLogger().log(
-                                        Level.error, '播放器内部错误 ${e.toString()}');
+                                        Level.error, 'Player internal error ${e.toString()}');
                                   }
                                 }
-                                // 右方向键被按下
+                                // Right arrow key pressed
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.arrowRight) {
                                   lastPlayerSpeed =
                                       playerController.playerSpeed;
                                 }
-                                // 左方向键被按下
+                                // Left arrow key pressed
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.arrowLeft) {
                                   int targetPosition = playerController
@@ -1049,19 +1048,19 @@ class _PlayerItemState extends State<PlayerItem>
                                         .log(Level.error, e.toString());
                                   }
                                 }
-                                // 上方向键被按下
+                                // Up arrow key pressed
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.arrowUp) {
                                   increaseVolume();
                                   _handleKeyChangingVolume();
                                 }
-                                // 下方向键被按下
+                                // Down arrow key pressed
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.arrowDown) {
                                   decreaseVolume();
                                   _handleKeyChangingVolume();
                                 }
-                                // Esc键被按下
+                                // Esc key pressed
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.escape) {
                                   if (videoPageController.isFullscreen &&
@@ -1078,20 +1077,20 @@ class _PlayerItemState extends State<PlayerItem>
                                     windowManager.hide();
                                   }
                                 }
-                                // F键被按下
+                                // F key pressed
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.keyF) {
                                   if (!videoPageController.isPip) {
                                     handleFullscreen();
                                   }
                                 }
-                                // D键盘被按下
+                                // D key pressed
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.keyD) {
                                   handleDanmaku();
                                 }
                               } else if (event is KeyRepeatEvent) {
-                                // 右方向键长按
+                                // Right arrow key long press
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.arrowRight) {
                                   if (playerController.playerSpeed < 2.0) {
@@ -1100,7 +1099,7 @@ class _PlayerItemState extends State<PlayerItem>
                                   }
                                 }
                               } else if (event is KeyUpEvent) {
-                                // 右方向键抬起
+                                // Right arrow key released
                                 if (event.logicalKey ==
                                     LogicalKeyboardKey.arrowRight) {
                                   if (playerController.showPlaySpeed) {
@@ -1116,7 +1115,7 @@ class _PlayerItemState extends State<PlayerItem>
                                       playerTimer = getPlayerTimer();
                                     } catch (e) {
                                       KazumiLogger().log(Level.error,
-                                          '播放器内部错误 ${e.toString()}');
+                                          'Player internal error ${e.toString()}');
                                     }
                                   }
                                 }
@@ -1166,7 +1165,7 @@ class _PlayerItemState extends State<PlayerItem>
                         height: double.infinity,
                       ),
                     ),
-                    // 弹幕面板
+                    // Danmaku panel
                     Positioned(
                       top: 0,
                       left: 0,
@@ -1193,7 +1192,7 @@ class _PlayerItemState extends State<PlayerItem>
                         ),
                       ),
                     ),
-                    // 播放器控制面板
+                    // Player control panel
                     (needFullPanel(context))
                         ? PlayerItemPanel(
                             onBackPressed: widget.onBackPressed,
@@ -1237,7 +1236,7 @@ class _PlayerItemState extends State<PlayerItem>
                             showSyncPlayEndPointSwitchDialog:
                                 showSyncPlayEndPointSwitchDialog,
                           ),
-                    // 播放器手势控制
+                    // Player gesture control
                     Positioned.fill(
                       left: 16,
                       top: 25,
@@ -1295,7 +1294,7 @@ class _PlayerItemState extends State<PlayerItem>
                                 final double delta = details.delta.dy;
 
                                 if (tapPosition < sectionWidth) {
-                                  // 左边区域
+                                  // Left area
                                   playerController.brightnessSeeking = true;
                                   playerController.showBrightness = true;
                                   final double level = (totalHeight) * 2;
@@ -1307,7 +1306,7 @@ class _PlayerItemState extends State<PlayerItem>
                                   setBrightness(result);
                                   playerController.brightness = result;
                                 } else {
-                                  // 右边区域
+                                  // Right area
                                   playerController.volumeSeeking = true;
                                   playerController.showVolume = true;
                                   final double level = (totalHeight) * 0.03;
