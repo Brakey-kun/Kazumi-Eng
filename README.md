@@ -1,16 +1,16 @@
 # Kazumi
-使用 Flutter 开发的基于自定义规则的番剧采集与在线观看程序。使用最多五行基于 `Xpath` 语法的选择器构建自己的规则。支持规则导入与规则分享。支持基于 `Anime4K` 的实时超分辨率。绝赞开发中 (～￣▽￣)～
+An anime collection and online viewing program based on custom rules, developed using Flutter. Build your own rules using up to five lines of selectors based on `Xpath` syntax. Supports rule import and rule sharing. Supports real-time super-resolution based on `Anime4K`. Currently in active development (～￣▽￣)～
 
-## 支持平台
+## Supported Platforms
 
-- Android 10 及以上
-- Windows 10 及以上
-- MacOS 10.15 及以上
-- Linux (实验性)
-- iOS (需要自签名)
-- HarmonyOS NEXT (位于[分支仓库](https://github.com/ErBWs/Kazumi/releases/latest)，需要侧载)
+- Android 10 and above
+- Windows 10 and above
+- MacOS 10.15 and above
+- Linux (experimental)
+- iOS (requires self-signing)
+- HarmonyOS NEXT (located in [branch repository](https://github.com/ErBWs/Kazumi/releases/latest), requires sideloading)
 
-## 屏幕截图 
+## Screenshots
 
 <table>
   <tr>
@@ -25,37 +25,37 @@
   <tr>
 </table>
 
-## 功能 / 开发计划
+## Features / Development Plan
 
-- [x] 规则编辑器
-- [x] 番剧目录
-- [x] 番剧搜索
-- [x] 番剧时间表
-- [x] 番剧字幕
-- [x] 分集播放
-- [x] 视频播放器
-- [x] 多视频源支持
-- [x] 规则分享
-- [x] 硬件加速
-- [x] 高刷适配
-- [x] 追番列表
-- [x] 番剧弹幕
-- [x] 在线更新
-- [x] 历史记录
-- [x] 倍速播放
-- [x] 配色方案 
-- [x] 跨设备同步
-- [x] 无线投屏 (DLNA)
-- [x] 外部播放器播放
-- [x] 超分辨率
-- [x] 一起看
-- [ ] 番剧下载
-- [ ] 番剧更新提醒
-- [ ] 还有更多 (/・ω・＼) 
+- [x] Rule editor
+- [x] Anime catalog
+- [x] Anime search
+- [x] Anime schedule
+- [x] Anime subtitles
+- [x] Episode playback
+- [x] Video player
+- [x] Multiple video source support
+- [x] Rule sharing
+- [x] Hardware acceleration
+- [x] High refresh rate adaptation
+- [x] Watchlist
+- [x] Anime comments/danmaku
+- [x] Online updates
+- [x] History
+- [x] Playback speed control
+- [x] Color schemes
+- [x] Cross-device synchronization
+- [x] Wireless casting (DLNA)
+- [x] External player playback
+- [x] Super-resolution
+- [x] Watch together
+- [ ] Anime downloads
+- [ ] Anime update notifications
+- [ ] And more (/・ω・＼)
 
-## 下载
+## Download
 
-通过本页面 [releases](https://github.com/Predidit/Kazumi/releases) 选项卡下载：
+Download through the [releases](https://github.com/Predidit/Kazumi/releases) tab on this page:
 
 <a href="https://github.com/Predidit/Kazumi/releases">
   <img src="static/svg/get_it_on_github.svg" alt="Get it on Github" width="200"/>
@@ -77,13 +77,13 @@
 
 #### Arch Linux
 
-可以从 [AUR](http://aur.archlinux.org) 或 [archlinuxcn](https://github.com/archlinuxcn/repo) 安装。
+Can be installed from [AUR](http://aur.archlinux.org) or [archlinuxcn](https://github.com/archlinuxcn/repo).
 
 ##### AUR
 
 ```bash
-[yay/paru] -S kazumi # 从源码构建
-[yay/paru] -S kazumi-bin # 二进制包
+[yay/paru] -S kazumi # Build from source
+[yay/paru] -S kazumi-bin # Binary package
 ```
 
 ##### archlinuxcn
@@ -92,101 +92,97 @@
 sudo pacman -S kazumi
 ```
 
-## 贡献
+## Contributing
 
-欢迎向我们的 [规则仓库](https://github.com/Predidit/KazumiRules) 提交您的自定义规则。您可以自由选择是否在规则中留下您的ID
+We welcome submissions of your custom rules to our [rule repository](https://github.com/Predidit/KazumiRules). You can freely choose whether to include your ID in the rules.
 
 ## Q&A
 
 <details>
-<summary>使用者 Q&A</summary>
+<summary>User Q&A</summary>
 
-#### Q: 为什么少数番剧中有广告？
+#### Q: Why are there ads in some anime?
 
-A: 本项目未插入任何广告。广告来自视频源, 请不要相信广告中的任何内容, 并尽量选择没有广告的视频源观看。
+A: This project does not insert any advertisements. Ads come from video sources. Please do not trust any content in the ads and try to choose ad-free video sources for viewing.
 
-#### Q: 为什么我启用超分辨率功能后播放卡顿？
+#### Q: Why does playback stutter after I enable the super-resolution feature?
 
-A: 超分辨率功能对 GPU 性能要求较高, 如果没有在高性能独立显卡上运行 Kazumi, 尽量选择效率档而非质量档。对低分辨率视频源而非高分辨率视频源使用超分也可以降低性能消耗。
+A: The super-resolution feature requires high GPU performance. If you're not running Kazumi on a high-performance dedicated graphics card, try choosing efficiency mode rather than quality mode. Using super-resolution on low-resolution video sources rather than high-resolution ones can also reduce performance consumption.
 
-#### Q: 为什么播放视频时内存占用较高？
+#### Q: Why is memory usage high when playing videos?
 
-A: 本程序在视频播放时, 会尽可能多地缓存视频到内存, 以提供较好的观看体验。如果您的内存较为紧张, 可以在播放设置选项卡启用低内存模式, 这将限制缓存。
+A: This program caches as much video as possible to memory during video playback to provide a good viewing experience. If your memory is limited, you can enable low memory mode in the playback settings tab, which will limit caching.
 
-#### Q: 为什么少数番剧无法通过外部播放器观看？
+#### Q: Why can't some anime be watched through external players?
 
-A: 部分视频源的番剧使用了反盗链措施, 这可以被 Kazumi 解决, 但无法被外部播放器解决。
+A: Some video sources use anti-hotlinking measures, which can be resolved by Kazumi but cannot be resolved by external players.
 
-#### Q: 为什么下载的 Linux 版本缺少图标和托盘功能？
+#### Q: Why does the downloaded Linux version lack icons and tray functionality?
 
-A: 使用 .deb 版本进行安装, tar.gz 版本仅为方便二次打包, 这一格式先天缺乏图标和托盘功能支持。
-
-</details>
-
-<details>
-<summary>规则编写者 Q&A</summary>
-
-#### Q: 为什么我的自定义规则无法实现检索？
-
-A: 目前我们对 `Xpath` 语法的支持并不完整, 我们目前只支持以 `//` 开头的选择器。建议参照我们给出的示例规则构建自定义规则。
-
-#### Q: 为什么我的自定义规则可以实现检索, 但不能实现观看？
-
-A: 尝试关闭自定义规则的使用内置播放器选项, 这将尝试使用 `webview` 进行播放, 提高兼容性。但在内置播放器可用时, 建议启用内置播放器, 以获得更加流畅并带有弹幕的观看体验。
+A: Use the .deb version for installation. The tar.gz version is only for convenience of secondary packaging, and this format inherently lacks support for icons and tray functionality.
 
 </details>
 
 <details>
-<summary>开发者 Q&A</summary>
+<summary>Rule Writer Q&A</summary>
 
-#### Q: 我在尝试自行编译该项目, 但编译没有成功。
+#### Q: Why can't my custom rules implement search?
 
-A: 本项目编译需要良好的网络环境, 除了由 Google 托管的 Flutter 相关依赖外, 本项目同样依赖托管在 MavenCentral/Github/SourceForge 上的资源。如果您位于中国大陆, 可能需要设置恰当的镜像地址。
+A: Currently, our support for `Xpath` syntax is not complete. We currently only support selectors starting with `//`. We recommend building custom rules based on the example rules we provide.
+
+#### Q: Why can my custom rules implement search but not viewing?
+
+A: Try disabling the use built-in player option for custom rules, which will attempt to use `webview` for playback, improving compatibility. However, when the built-in player is available, it's recommended to enable it for a smoother viewing experience with danmaku.
 
 </details>
 
-## 美术资源
+<details>
+<summary>Developer Q&A</summary>
 
-本项目图标来自 [Yuquanaaa](https://www.pixiv.net/users/66219277) 发表在 [Pixiv](https://www.pixiv.net/artworks/116666979) 上的作品。
+#### Q: I'm trying to compile this project myself, but compilation was unsuccessful.
 
-此图标由其原作者 [Yuquanaaa](https://www.pixiv.net/users/66219277) 拥有版权。我们已获得原作者的授权和许可, 可以在本项目中使用这一图标。这一图标不是自由使用的, 未经原作者明确授权, 任何人不得擅自使用、复制、修改或分发这一图标。
+A: This project requires a good network environment for compilation. In addition to Flutter-related dependencies hosted by Google, this project also depends on resources hosted on MavenCentral/Github/SourceForge. If you're located in mainland China, you may need to set appropriate mirror addresses.
 
-## 免责声明
+</details>
 
-本项目基于 GNU 通用公共许可证第 3 版（GPL-3.0）授权。我们不对其适用性、可靠性或准确性作出任何明示或暗示的保证。在法律允许的最大范围内, 作者和贡献者不承担任何因使用本软件而产生的直接、间接、偶然、特殊或后果性的损害赔偿责任。
+## Art Resources
 
-使用本项目需遵守所在地法律法规, 不得进行任何侵犯第三方知识产权的行为。因使用本项目而产生的数据和缓存应在24小时内清除, 超出 24 小时的使用需获得相关权利人的授权。
+The project icon comes from a work published by [Yuquanaaa](https://www.pixiv.net/users/66219277) on [Pixiv](https://www.pixiv.net/artworks/116666979).
 
-## 隐私政策 (Privacy policy)
+This icon is copyrighted by its original author [Yuquanaaa](https://www.pixiv.net/users/66219277). We have obtained authorization and permission from the original author to use this icon in this project. This icon is not free to use. Without explicit authorization from the original author, no one may use, copy, modify, or distribute this icon without permission.
 
-我们不收集任何用户数据, 不使用任何遥测组件。
+## Disclaimer
 
-## 代码签名策略 (Code signing policy)
-提交者: [Contributors](https://github.com/Predidit/Kazumi/graphs/contributors)
-审阅者: [Owner](https://github.com/Predidit)
+This project is licensed under the GNU General Public License version 3 (GPL-3.0). We make no express or implied warranties regarding its applicability, reliability, or accuracy. To the maximum extent permitted by law, the authors and contributors shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of this software.
 
-## 赞助 (Sponsors)
-| ![signpath](https://signpath.org/assets/favicon-50x50.png) | Free code signing on Windows provided by [SignPath.io](https://about.signpath.io/), certficate by [SignPath Foundation](https://signpath.org/) |
+Use of this project must comply with local laws and regulations, and no activities that infringe on third-party intellectual property rights may be conducted. Data and cache generated from using this project should be cleared within 24 hours. Use beyond 24 hours requires authorization from relevant rights holders.
+
+## Privacy Policy
+
+We do not collect any user data and do not use any telemetry components.
+
+## Code Signing Policy
+Submitters: [Contributors](https://github.com/Predidit/Kazumi/graphs/contributors)
+Reviewers: [Owner](https://github.com/Predidit)
+
+## Sponsors
+| ![signpath](https://signpath.org/assets/favicon-50x50.png) | Free code signing on Windows provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/) |
 |------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
 
-## 致谢
+## Acknowledgments
 
-特别感谢 [XpathSelector](https://github.com/simonkimi/xpath_selector) 这个优秀的项目是本项目的基石。
+Special thanks to [XpathSelector](https://github.com/simonkimi/xpath_selector) - this excellent project is the foundation of our project.
 
-特别感谢 [DandanPlayer](https://www.dandanplay.com/) 本项目使用了 dandanplayer 开放 API 以提供弹幕交互。
+Special thanks to [DandanPlayer](https://www.dandanplay.com/) - this project uses the dandanplayer open API to provide danmaku interaction.
 
-特别感谢 [Bangumi](https://bangumi.tv/) 本项目使用了 Bangumi 开放 API 以提供番剧元数据。
+Special thanks to [Bangumi](https://bangumi.tv/) - this project uses the Bangumi open API to provide anime metadata.
 
-特别感谢 [Anime4K](https://github.com/bloc97/Anime4K) 本项目使用 Anime4K 进行实时超分。
+Special thanks to [Anime4K](https://github.com/bloc97/Anime4K) - this project uses Anime4K for real-time super-resolution.
 
-特别感谢 [SyncPlay](https://github.com/Syncplay/syncplay) 本项目使用 SyncPlay 协议并通过 SyncPlay 公共服务器实现一起看功能。
+Special thanks to [SyncPlay](https://github.com/Syncplay/syncplay) - this project uses the SyncPlay protocol and implements watch together functionality through SyncPlay public servers.
 
-感谢 [media-kit](https://github.com/media-kit/media-kit) 本项目跨平台媒体播放能力来自 media-kit。
+Thanks to [media-kit](https://github.com/media-kit/media-kit) - this project's cross-platform media playback capabilities come from media-kit.
 
-感谢 [avbuild](https://github.com/wang-bin/avbuild) 本项目使用了来自 avbuild 的树外补丁实现非标准视频流播放。
+Thanks to [avbuild](https://github.com/wang-bin/avbuild) - this project uses out-of-tree patches from avbuild to implement non-standard video stream playback.
 
-感谢 [hive](https://github.com/isar/hive) 本项目持久化储存能力来自 hive。
-
-
-
-
+Thanks to [hive](https://github.com/isar/hive) - this project's persistent storage capabilities come from hive.
