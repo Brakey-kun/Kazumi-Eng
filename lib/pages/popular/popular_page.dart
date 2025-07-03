@@ -74,12 +74,12 @@ class _PopularPageState extends State<PopularPage>
     if (_lastPressedAt == null ||
         DateTime.now().difference(_lastPressedAt!) >
             const Duration(seconds: 2)) {
-      // 两次点击时间间隔超过2秒，重新记录时间戳
+      // The interval between two clicks exceeds 2 seconds, record the timestamp again
       _lastPressedAt = DateTime.now();
-      KazumiDialog.showToast(message: "再按一次退出应用", context: context);
+      KazumiDialog.showToast(message: "Press again to exit the app", context: context);
       return;
     }
-    SystemNavigator.pop(); // 退出应用
+    SystemNavigator.pop(); // Exit the app
   }
 
   @override
@@ -165,7 +165,7 @@ class _PopularPageState extends State<PopularPage>
                               child: SizedBox(
                                 height: 400,
                                 child: GeneralErrorWidget(
-                                  errMsg: '什么都没有找到 (´;ω;`)',
+                                  errMsg: 'Nothing found (´;ω;`)',
                                   actions: [
                                     GeneralErrorButton(
                                       onPressed: () {
@@ -177,7 +177,7 @@ class _PopularPageState extends State<PopularPage>
                                           popularController.queryBangumiByTag();
                                         }
                                       },
-                                      text: '点击重试',
+                                      text: 'Click to retry',
                                     ),
                                   ],
                                 ),
@@ -211,11 +211,11 @@ class _PopularPageState extends State<PopularPage>
     int crossCount = orientation != Orientation.portrait ? 6 : 3;
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        // 行间距
+        // Row spacing
         mainAxisSpacing: StyleString.cardSpace - 2,
-        // 列间距
+        // Column spacing
         crossAxisSpacing: StyleString.cardSpace,
-        // 列数
+        // Number of columns
         crossAxisCount: crossCount,
         mainAxisExtent: MediaQuery.of(context).size.width / crossCount / 0.65 +
             MediaQuery.textScalerOf(context).scale(32.0),
@@ -233,21 +233,21 @@ class _PopularPageState extends State<PopularPage>
 
   Widget tagFilter() {
     List<String> tags = [
-      '日常',
-      '原创',
-      '校园',
-      '搞笑',
-      '奇幻',
-      '百合',
-      '恋爱',
-      '悬疑',
-      '热血',
-      '后宫',
-      '机战',
-      '轻改',
-      '偶像',
-      '治愈',
-      '异世界',
+      'Daily',
+      'Original',
+      'Campus',
+      'Comedy',
+      'Fantasy',
+      'Yuri',
+      'Romance',
+      'Suspense',
+      'Hot-blooded',
+      'Harem',
+      'Mecha',
+      'Light adaptation',
+      'Idol',
+      'Healing',
+      'Isekai',
     ];
 
     final ScrollController tagScrollController = ScrollController();

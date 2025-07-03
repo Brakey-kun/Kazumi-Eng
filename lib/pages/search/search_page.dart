@@ -58,7 +58,7 @@ class _SearchPageState extends State<SearchPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
-                  title: const Text('按热度排序'),
+                  title: const Text('Sort by popularity'),
                   onTap: () {
                     Navigator.pop(context);
                     searchController.text = searchPageController
@@ -68,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
                   },
                 ),
                 ListTile(
-                  title: const Text('按评分排序'),
+                  title: const Text('Sort by rating'),
                   onTap: () {
                     Navigator.pop(context);
                     searchController.text = searchPageController
@@ -78,7 +78,7 @@ class _SearchPageState extends State<SearchPage> {
                   },
                 ),
                 ListTile(
-                  title: const Text('按匹配程度排序'),
+                  title: const Text('Sort by relevance'),
                   onTap: () {
                     Navigator.pop(context);
                     searchController.text = searchPageController
@@ -107,14 +107,14 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: SysAppBar(
         backgroundColor: Colors.transparent,
-        title: const Text("搜索"),
+        title: const Text("Search"),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           showSortSwitcher();
         },
         icon: const Icon(Icons.sort),
-        label: const Text("排序方式"),
+        label: const Text("Sort method"),
       ),
       body: Column(
         children: [
@@ -138,7 +138,7 @@ class _SearchPageState extends State<SearchPage> {
                 Container(
                   height: 400,
                   alignment: Alignment.center,
-                  child: Text("无可用搜索建议，回车以直接检索"),
+                  child: Text("No search suggestions available, press Enter to search directly"),
                 ),
               ],
               onSubmitted: (value) {
@@ -154,7 +154,7 @@ class _SearchPageState extends State<SearchPage> {
                   child: SizedBox(
                     height: 400,
                     child: GeneralErrorWidget(
-                      errMsg: '什么都没有找到 (´;ω;`)',
+                      errMsg: 'Nothing found (´;ω;`)',
                       actions: [
                         GeneralErrorButton(
                           onPressed: () {
@@ -162,7 +162,7 @@ class _SearchPageState extends State<SearchPage> {
                                 searchController.text,
                                 type: 'init');
                           },
-                          text: '点击重试',
+                          text: 'Click to retry',
                         ),
                       ],
                     ),
