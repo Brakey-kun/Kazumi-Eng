@@ -64,7 +64,7 @@ class _PluginEditorPageState extends State<PluginEditorPage> {
 
     return Scaffold(
       appBar: const SysAppBar(
-        title: Text('规则编辑器'),
+        title: Text('Rule Editor'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -128,11 +128,11 @@ class _PluginEditorPageState extends State<PluginEditorPage> {
                 ),
                 const SizedBox(height: 20),
                 ExpansionTile(
-                  title: const Text('高级选项'),
+                  title: const Text('Advanced Options'),
                   children: [
                     SwitchListTile(
-                      title: const Text('简易解析'),
-                      subtitle: const Text('使用简易解析器而不是现代解析器'),
+                      title: const Text('Legacy Parser'),
+                      subtitle: const Text('Use legacy parser instead of modern parser'),
                       value: useLegacyParser,
                       onChanged: (bool value) {
                         setState(() {
@@ -142,7 +142,7 @@ class _PluginEditorPageState extends State<PluginEditorPage> {
                     ),
                     SwitchListTile(
                       title: const Text('POST'),
-                      subtitle: const Text('使用POST而不是GET进行检索'),
+                      subtitle: const Text('Use POST instead of GET for retrieval'),
                       value: usePost,
                       onChanged: (bool value) {
                         setState(() {
@@ -151,8 +151,8 @@ class _PluginEditorPageState extends State<PluginEditorPage> {
                       },
                     ),
                     SwitchListTile(
-                      title: const Text('内置播放器'),
-                      subtitle: const Text('使用内置播放器播放视频'),
+                      title: const Text('Native Player'),
+                      subtitle: const Text('Use native player for video playback'),
                       value: useNativePlayer,
                       onChanged: (bool value) {
                         setState(() {

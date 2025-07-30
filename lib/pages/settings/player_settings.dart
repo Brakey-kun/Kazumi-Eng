@@ -65,7 +65,7 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
         onBackPressed(context);
       },
       child: Scaffold(
-        appBar: const SysAppBar(title: Text('播放设置')),
+        appBar: const SysAppBar(title: Text('Player Settings')),
         body: Center(
           child: SizedBox(
             width: (MediaQuery.of(context).size.width > 1000) ? 1000 : null,
@@ -79,15 +79,15 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                         await setting.put(SettingBoxKey.hAenable, hAenable);
                         setState(() {});
                       },
-                      title: const Text('硬件解码'),
+                      title: const Text('Hardware Decoding'),
                       initialValue: hAenable,
                     ),
                     SettingsTile.navigation(
                       onPressed: (value) async {
                         await Modular.to.pushNamed('/settings/player/decoder');
                       },
-                      title: const Text('硬件解码器'),
-                      description: const Text('仅在硬件解码启用时生效'),
+                      title: const Text('Hardware Decoder'),
+                      description: const Text('Only effective when hardware decoding is enabled'),
                     ),
                     SettingsTile.switchTile(
                       onToggle: (value) async {
@@ -96,8 +96,8 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                             SettingBoxKey.lowMemoryMode, lowMemoryMode);
                         setState(() {});
                       },
-                      title: const Text('低内存模式'),
-                      description: const Text('禁用高级缓存以减少内存占用'),
+                      title: const Text('Low Memory Mode'),
+                      description: const Text('Disable advanced caching to reduce memory usage'),
                       initialValue: lowMemoryMode,
                     ),
                     if (Platform.isAndroid) ...[
@@ -108,8 +108,8 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                               SettingBoxKey.androidEnableOpenSLES, androidEnableOpenSLES);
                           setState(() {});
                         },
-                        title: const Text('低延迟音频'),
-                        description: const Text('启用OpenSLES音频输出以降低延时'),
+                        title: const Text('Low Latency Audio'),
+                        description: const Text('Enable OpenSLES audio output to reduce latency'),
                         initialValue: androidEnableOpenSLES,
                       ),
                     ],
@@ -117,7 +117,7 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                       onPressed: (_) async {
                         Modular.to.pushNamed('/settings/player/super');
                       },
-                      title: const Text('超分辨率'),
+                      title: const Text('Super Resolution'),
                     ),
                   ],
                 ),
@@ -129,8 +129,8 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                         await setting.put(SettingBoxKey.playResume, playResume);
                         setState(() {});
                       },
-                      title: const Text('自动跳转'),
-                      description: const Text('跳转到上次播放位置'),
+                      title: const Text('Auto Resume'),
+                      description: const Text('Jump to last playback position'),
                       initialValue: playResume,
                     ),
                     SettingsTile.switchTile(
@@ -140,8 +140,8 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                             SettingBoxKey.showPlayerError, showPlayerError);
                         setState(() {});
                       },
-                      title: const Text('错误提示'),
-                      description: const Text('显示播放器内部错误提示'),
+                      title: const Text('Error Notifications'),
+                      description: const Text('Show internal player error messages'),
                       initialValue: showPlayerError,
                     ),
                     SettingsTile.switchTile(
@@ -151,8 +151,8 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                             SettingBoxKey.playerDebugMode, playerDebugMode);
                         setState(() {});
                       },
-                      title: const Text('调试模式'),
-                      description: const Text('记录播放器内部日志'),
+                      title: const Text('Debug Mode'),
+                      description: const Text('Log internal player messages'),
                       initialValue: playerDebugMode,
                     ),
                     SettingsTile.switchTile(
@@ -162,8 +162,8 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                             SettingBoxKey.privateMode, privateMode);
                         setState(() {});
                       },
-                      title: const Text('隐身模式'),
-                      description: const Text('不保留观看记录'),
+                      title: const Text('Private Mode'),
+                      description: const Text('Do not keep viewing history'),
                       initialValue: privateMode,
                     ),
                   ],
@@ -174,7 +174,7 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                       onPressed: (_) async {
                         KazumiDialog.show(builder: (context) {
                           return AlertDialog(
-                            title: const Text('默认倍速'),
+                            title: const Text('Default Playback Speed'),
                             content: StatefulBuilder(builder:
                                 (BuildContext context, StateSetter setState) {
                               final List<double> playSpeedList;
@@ -210,7 +210,7 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                               TextButton(
                                 onPressed: () => KazumiDialog.dismiss(),
                                 child: Text(
-                                  '取消',
+                                  'Cancel',
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -222,13 +222,13 @@ class _PlayerSettingsPageState extends State<PlayerSettingsPage> {
                                   updateDefaultPlaySpeed(1.0);
                                   KazumiDialog.dismiss();
                                 },
-                                child: const Text('默认设置'),
+                                child: const Text('Default Settings'),
                               ),
                             ],
                           );
                         });
                       },
-                      title: const Text('默认倍速'),
+                      title: const Text('Default Playback Speed'),
                       value: Text('$defaultPlaySpeed'),
                     ),
                   ],

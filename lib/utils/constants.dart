@@ -49,7 +49,7 @@ class LayoutBreakpoint {
   static const Map<String, double> medium = {'width': 840, 'height': 900};
 }
 
-// 随机UA列表
+// Random User Agent list
 const List<String> userAgentsList = [
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36',
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
@@ -63,7 +63,7 @@ const List<String> userAgentsList = [
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0',
 ];
 
-// 默认 SyncPlay 服务器列表
+// Default SyncPlay server list
 const List<String> defaultSyncPlayEndPoints = [
   'syncplay.pl:8995',
   'syncplay.pl:8996',
@@ -74,50 +74,50 @@ const List<String> defaultSyncPlayEndPoints = [
 
 const String defaultSyncPlayEndPoint = 'syncplay.pl:8996';
 
-// 随机HTTP请求头accept-language字段列表
+// Random HTTP request header accept-language field list
 const List<String> acceptLanguageList = [
   'zh-CN,zh;q=0.9',
   'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
   'zh-CN,zh-TW;q=0.9,zh;q=0.8,en-US;q=0.7,en;q=0.6',
 ];
 
-// Bangumi API 文档要求的UA格式
+// User Agent format required by Bangumi API documentation
 Map<String, String> bangumiHTTPHeader = {
   'user-agent':
       'Predidit/Kazumi/${Api.version} (Android) (https://github.com/Predidit/Kazumi)',
   'referer': '',
 };
 
-// 可选硬件解码器
+// Optional hardware decoders
 const Map<String, String> hardwareDecodersList = {
-  'auto': '启用任意可用解码器',
-  'auto-safe': '启用最佳解码器',
-  'auto-copy': '启用带拷贝功能的最佳解码器',
-  'd3d11va': 'DirectX11 (windows8 及以上)',
-  'd3d11va-copy': 'DirectX11 (windows8 及以上) (非直通)',
+  'auto': 'Enable any available decoder',
+  'auto-safe': 'Enable best decoder',
+  'auto-copy': 'Enable best decoder with copy function',
+  'd3d11va': 'DirectX11 (Windows 8 and above)',
+  'd3d11va-copy': 'DirectX11 (Windows 8 and above) (Non-passthrough)',
   'videotoolbox': 'VideoToolbox (macOS / iOS)',
-  'videotoolbox-copy': 'VideoToolbox (macOS / iOS) (非直通)',
+  'videotoolbox-copy': 'VideoToolbox (macOS / iOS) (Non-passthrough)',
   'vaapi': 'VAAPI (Linux)',
-  'vaapi-copy': 'VAAPI (Linux) (非直通)',
-  'nvdec': 'NVDEC (NVIDIA独占)',
-  'nvdec-copy': 'NVDEC (NVIDIA独占) (非直通)',
+  'vaapi-copy': 'VAAPI (Linux) (Non-passthrough)',
+  'nvdec': 'NVDEC (NVIDIA Exclusive)',
+  'nvdec-copy': 'NVDEC (NVIDIA Exclusive) (Non-passthrough)',
   'drm': 'DRM (Linux)',
-  'drm-copy': 'DRM (Linux) (非直通)',
-  'vulkan': 'Vulkan (全平台) (实验性)',
-  'vulkan-copy': 'Vulkan (全平台) (实验性) (非直通)',
-  'dxva2': 'DXVA2 (Windows7 及以上)',
-  'dxva2-copy': 'DXVA2 (Windows7 及以上) (非直通)',
+  'drm-copy': 'DRM (Linux) (Non-passthrough)',
+  'vulkan': 'Vulkan (All platforms) (Experimental)',
+  'vulkan-copy': 'Vulkan (All platforms) (Experimental) (Non-passthrough)',
+  'dxva2': 'DXVA2 (Windows 7 and above)',
+  'dxva2-copy': 'DXVA2 (Windows 7 and above) (Non-passthrough)',
   'vdpau': 'VDPAU (Linux)',
-  'vdpau-copy': 'VDPAU (Linux) (非直通)',
+  'vdpau-copy': 'VDPAU (Linux) (Non-passthrough)',
   'mediacodec': 'MediaCodec (Android)',
-  'mediacodec-copy': 'MediaCodec (Android) (非直通)',
-  'cuda': 'CUDA (NVIDIA独占) (过时)',
-  'cuda-copy': 'CUDA (NVIDIA独占) (过时) (非直通)',
-  'crystalhd': 'CrystalHD (全平台) (过时)',
-  'rkmpp': 'Rockchip MPP (仅部分Rockchip芯片)',
+  'mediacodec-copy': 'MediaCodec (Android) (Non-passthrough)',
+  'cuda': 'CUDA (NVIDIA Exclusive) (Deprecated)',
+  'cuda-copy': 'CUDA (NVIDIA Exclusive) (Deprecated) (Non-passthrough)',
+  'crystalhd': 'CrystalHD (All platforms) (Deprecated)',
+  'rkmpp': 'Rockchip MPP (Some Rockchip chips only)',
 };
 
-// 超分辨率滤镜
+// Super resolution filters
 const List<String> mpvAnime4KShaders = [
   'Anime4K_Clamp_Highlights.glsl',
   'Anime4K_Restore_CNN_VL.glsl',
@@ -127,7 +127,7 @@ const List<String> mpvAnime4KShaders = [
   'Anime4K_Upscale_CNN_x2_M.glsl'
 ];
 
-// 超分辨率滤镜 (轻量)
+// Super resolution filters (Lite)
 const List<String> mpvAnime4KShadersLite = [
   'Anime4K_Clamp_Highlights.glsl',
   'Anime4K_Restore_CNN_M.glsl',

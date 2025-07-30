@@ -103,17 +103,17 @@ class Utils {
         .difference(DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000));
 
     if (difference.inDays > 365) {
-      return '${difference.inDays ~/ 365}年前';
+      return '${difference.inDays ~/ 365} years ago';
     } else if (difference.inDays > 30) {
-      return '${difference.inDays ~/ 30}个月前';
+      return '${difference.inDays ~/ 30} months ago';
     } else if (difference.inDays > 0) {
-      return '${difference.inDays}天前';
+      return '${difference.inDays} days ago';
     } else if (difference.inHours > 0) {
-      return '${difference.inHours}小时前';
+      return '${difference.inHours} hours ago';
     } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes}分钟前';
+      return '${difference.inMinutes} minutes ago';
     } else {
-      return '刚刚';
+      return 'just now';
     }
   }
 
@@ -136,11 +136,11 @@ class Utils {
           formatType: formatType);
     }
     if (distance <= 60) {
-      return '刚刚';
+      return 'just now';
     } else if (distance <= 3600) {
-      return '${(distance / 60).floor()}分钟前';
+      return '${(distance / 60).floor()} minutes ago';
     } else if (distance <= 43200) {
-      return '${(distance / 60 / 60).floor()}小时前';
+      return '${(distance / 60 / 60).floor()} hours ago';
     } else if (DateTime.fromMillisecondsSinceEpoch(time * 1000).year ==
         DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000).year) {
       return CustomStamp_str(
@@ -207,7 +207,7 @@ class Utils {
         int.parse(MM) == DateTime.now().month) {
       // 当天
       if (int.parse(DD) == DateTime.now().day) {
-        return '今天';
+        return 'today';
       }
     }
     return date;
@@ -473,10 +473,10 @@ class Utils {
   }
 
   static String getSeasonStringByMonth(int month) {
-    if (month <= 3) return '冬';
-    if (month <= 6) return '春';
-    if (month <= 9) return '夏';
-    return '秋';
+    if (month <= 3) return 'winter';
+    if (month <= 6) return 'spring';
+    if (month <= 9) return 'summer';
+    return 'autumn';
   }
 
   // 进入桌面设备小窗模式

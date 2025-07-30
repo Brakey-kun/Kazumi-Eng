@@ -33,7 +33,7 @@ void main() async {
     await GStorage.init();
   } catch (_) {
     runApp(MaterialApp(
-        title: '初始化失败',
+        title: 'Initialization Failed',
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         supportedLocales: const [
           Locale.fromSubtags(

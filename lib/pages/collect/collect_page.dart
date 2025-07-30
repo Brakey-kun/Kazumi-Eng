@@ -50,11 +50,11 @@ class _CollectPageState extends State<CollectPage>
   }
 
   final List<Tab> tabs = const <Tab>[
-    Tab(text: '在看'),
-    Tab(text: '想看'),
-    Tab(text: '搁置'),
-    Tab(text: '看过'),
-    Tab(text: '抛弃'),
+    Tab(text: 'Watching'),
+    Tab(text: 'Want to Watch'),
+    Tab(text: 'On Hold'),
+    Tab(text: 'Completed'),
+    Tab(text: 'Dropped'),
   ];
 
   @override
@@ -77,7 +77,7 @@ class _CollectPageState extends State<CollectPage>
               tabs: tabs,
               indicatorColor: Theme.of(context).colorScheme.primary,
             ),
-            title: const Text('追番'),
+            title: const Text('Collection'),
             actions: [
               IconButton(
                   onPressed: () {
@@ -95,11 +95,11 @@ class _CollectPageState extends State<CollectPage>
               bool webDavenable = await setting.get(SettingBoxKey.webDavEnable,
                   defaultValue: false);
               if (!webDavenable) {
-                KazumiDialog.showToast(message: 'webDav未启用, 同步功能不可用');
+                KazumiDialog.showToast(message: 'WebDAV not enabled, sync function unavailable');
                 return;
               }
               if (showDelete) {
-                KazumiDialog.showToast(message: '编辑模式无法执行同步');
+                KazumiDialog.showToast(message: 'Cannot sync in edit mode');
                 return;
               }
               if (syncCollectiblesing) {
@@ -134,7 +134,7 @@ class _CollectPageState extends State<CollectPage>
       );
     } else {
       return const Center(
-        child: Text('啊嘞, 没有追番的说 (´;ω;`)'),
+        child: Text('Oh no, no anime in collection (´;ω;`)'),
       );
     }
   }

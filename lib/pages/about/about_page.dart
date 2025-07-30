@@ -22,7 +22,7 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
-  final exitBehaviorTitles = <String>['退出 Kazumi', '最小化至托盘', '每次都询问'];
+  final exitBehaviorTitles = <String>['Exit Kazumi', 'Minimize to Tray', 'Ask Every Time'];
 
   late dynamic defaultDanmakuArea;
   late dynamic defaultThemeMode;
@@ -96,15 +96,15 @@ class _AboutPageState extends State<AboutPage> {
     KazumiDialog.show(
       builder: (context) {
         return AlertDialog(
-          title: const Text('缓存管理'),
-          content: const Text('缓存为番剧封面, 清除后加载时需要重新下载,确认要清除缓存吗?'),
+          title: const Text('Cache Management'),
+          content: const Text('Cache contains anime covers. After clearing, they will need to be re-downloaded when loading. Are you sure you want to clear the cache?'),
           actions: [
             TextButton(
               onPressed: () {
                 KazumiDialog.dismiss();
               },
               child: Text(
-                '取消',
+                'Cancel',
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
@@ -115,7 +115,7 @@ class _AboutPageState extends State<AboutPage> {
                 } catch (_) {}
                 KazumiDialog.dismiss();
               },
-              child: const Text('确认'),
+              child: const Text('Confirm'),
             ),
           ],
         );
@@ -131,7 +131,7 @@ class _AboutPageState extends State<AboutPage> {
         onBackPressed(context);
       },
       child: Scaffold(
-        appBar: const SysAppBar(title: Text('关于')),
+        appBar: const SysAppBar(title: Text('About')),
         // backgroundColor: Colors.transparent,
         body: Center(
           child: SizedBox(
@@ -144,20 +144,20 @@ class _AboutPageState extends State<AboutPage> {
                       onPressed: (_) {
                         Modular.to.pushNamed('/settings/about/license');
                       },
-                      title: const Text('开源许可证'),
-                      description: const Text('查看所有开源许可证'),
+                      title: const Text('Open Source Licenses'),
+                      description: const Text('View all open source licenses'),
                     ),
                   ],
                 ),
                 SettingsSection(
-                  title: const Text('外部链接'),
+                  title: const Text('External Links'),
                   tiles: [
                     SettingsTile.navigation(
                       onPressed: (_) {
                         launchUrl(Uri.parse(Api.sourceUrl),
                             mode: LaunchMode.externalApplication);
                       },
-                      title: const Text('项目主页'),
+                      title: const Text('Project Homepage'),
                       value: const Text('Github'),
                     ),
                     SettingsTile.navigation(
@@ -165,7 +165,7 @@ class _AboutPageState extends State<AboutPage> {
                         launchUrl(Uri.parse(Api.iconUrl),
                             mode: LaunchMode.externalApplication);
                       },
-                      title: const Text('图标创作'),
+                      title: const Text('Icon Creation'),
                       value: const Text('Pixiv'),
                     ),
                     SettingsTile.navigation(
@@ -173,7 +173,7 @@ class _AboutPageState extends State<AboutPage> {
                         launchUrl(Uri.parse(Api.bangumiIndex),
                             mode: LaunchMode.externalApplication);
                       },
-                      title: const Text('番剧索引'),
+                      title: const Text('Anime Index'),
                       value: const Text('Bangumi'),
                     ),
                     SettingsTile.navigation(
@@ -181,7 +181,7 @@ class _AboutPageState extends State<AboutPage> {
                         launchUrl(Uri.parse(Api.dandanIndex),
                             mode: LaunchMode.externalApplication);
                       },
-                      title: const Text('弹幕来源'),
+                      title: const Text('Danmaku Source'),
                       description: Text('ID: ${mortis['id']}'),
                       value: const Text('DanDanPlay'),
                     ),
@@ -189,17 +189,17 @@ class _AboutPageState extends State<AboutPage> {
                 ),
                 if (Utils.isDesktop()) // 之后如果有非桌面平台的新选项可以移除
                   SettingsSection(
-                    title: const Text('默认行为'),
+                    title: const Text('Default Behavior'),
                     tiles: [
                       // if (Utils.isDesktop())
                       SettingsTile.navigation(
-                        title: const Text('关闭时'),
+                        title: const Text('When Closing'),
                         value: Text(exitBehaviorTitles[exitBehavior]),
                         onPressed: (_) {
                           KazumiDialog.show(builder: (context) {
                             return SimpleDialog(
                               clipBehavior: Clip.antiAlias,
-                              title: const Text('关闭时'),
+                              title: const Text('When Closing'),
                               children: [
                                 for (int i = 0; i < 3; i++)
                                   RadioListTile(
@@ -227,7 +227,7 @@ class _AboutPageState extends State<AboutPage> {
                       onPressed: (_) {
                         Modular.to.pushNamed('/settings/about/logs');
                       },
-                      title: const Text('错误日志'),
+                      title: const Text('Error Logs'),
                     ),
                   ],
                 ),
@@ -237,15 +237,15 @@ class _AboutPageState extends State<AboutPage> {
                       onPressed: (_) {
                         _showCacheDialog();
                       },
-                      title: const Text('清除缓存'),
+                      title: const Text('Clear Cache'),
                       value: _cacheSizeMB == -1
-                          ? const Text('统计中...')
+                          ? const Text('Calculating...')
                           : Text('${_cacheSizeMB.toStringAsFixed(2)}MB'),
                     ),
                   ],
                 ),
                 SettingsSection(
-                  title: const Text('应用更新'),
+                  title: const Text('App Updates'),
                   tiles: [
                     SettingsTile.switchTile(
                       onToggle: (value) async {
@@ -253,15 +253,15 @@ class _AboutPageState extends State<AboutPage> {
                         await setting.put(SettingBoxKey.autoUpdate, autoUpdate);
                         setState(() {});
                       },
-                      title: const Text('自动更新'),
+                      title: const Text('Auto Update'),
                       initialValue: autoUpdate,
                     ),
                     SettingsTile.navigation(
                       onPressed: (_) {
                         myController.checkUpdata();
                       },
-                      title: const Text('检查更新'),
-                      value: const Text('当前版本 ${Api.version}'),
+                      title: const Text('Check for Updates'),
+                      value: const Text('Current Version ${Api.version}'),
                     ),
                   ],
                 ),
